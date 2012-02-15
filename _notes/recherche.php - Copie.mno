@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_RStrajets" value="name:ID;datatype:int,name:DEPART;datatype:string,name:ARRIVEE;datatype:string,name:DATE_PARCOURS;datatype:date,name:HEURE;datatype:time,name:COMMENTAIRES;datatype:blob,name:PRIX;datatype:int,name:NOM;datatype:string,name:EMAIL;datatype:string,name:TELEPHONE;datatype:string" />
+</info>

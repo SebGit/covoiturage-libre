@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_RSville" value="name:ID;datatype:int,name:COMMUNE;datatype:string,name:CPOSTAL;datatype:string" />
+</info>

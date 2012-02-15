@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<info>
+	<infoitem key="UD_RSstats" value="name:STATS;datatype:int,name:DATE_CREATION;datatype:timestamp,name:DATE_FR;datatype:string" />
+	<infoitem key="UD_RSmax" value="name:STATS;datatype:int,name:DATE_CREATION;datatype:timestamp,name:DATE_FR;datatype:string" />
+</info>

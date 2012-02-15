@@ -1,0 +1,561 @@
+body {
+	margin:0;
+	padding:0;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#666;
+}
+form, h1, h2, h3, p {
+	margin:0;
+	padding:0;
+}
+h1 {
+	font-size:20px;
+	padding:10px;
+	margin:10px 0;
+	display:block;
+	background-color:#ef792f;
+	color:#fff;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+#depositaire {
+	padding:10px;
+	background-color:#ebebeb;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+#depositaire form {
+	padding:10px;
+	clear:both;
+	background-color:#fefefe;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+h2 {
+	font-size:20px;
+	margin-bottom:6px;
+}
+h3 {
+	margin-bottom:4px;
+	font-size:16px;
+}
+#header {
+	margin-top:15px;
+	background:url(../images/header5.jpg) top left no-repeat;
+}
+#lienhome {
+	display:block;
+	width:650px;
+	float:left;
+	height:155px;
+}
+#footer {
+	font-size:12px;
+	clear:both;
+	text-align:center;
+	padding:10px;
+	margin:20px 0;
+	display:block;
+	background-color:#3b629d;
+	color:#fff;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+p {
+	padding:0 0 10px 0;
+}
+a img {
+	border:none;
+}
+#conteneur {
+	width:970px;
+	margin:0 auto;
+}
+#map_canvas {
+	width:400px;
+	height:400px;
+	float:right;
+}
+#map_infos {
+	width:400px;
+	height:200px;
+	clear:right;
+	float:right;
+}
+.picto {
+	padding:10px;
+	width:60px;
+	background-color:#fff;
+	-moz-border-radius:10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	text-align:center;
+}
+
+.annonce:hover {
+	/*background-color:#ebeff5;*/
+	background-color:#ebebeb;
+	-moz-border-radius:10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+.legende {
+	font-size:0.85em;
+	color:#666;
+}
+.vert {
+	color:#7ebe54;
+}
+.gros {
+	font-size:2em;
+}
+.gros2 {
+	font-size:1.5em;
+}
+.champs {
+	width:220px;
+}
+#liste_depart, #liste_arrivee, #liste_etape1, #liste_etape2, #liste_etape3 {
+	display:none;
+	position:absolute;
+	z-index:10;
+	/*left:50%;
+	top:300px;
+	margin-left:-220px;*/
+	height:120px;
+	width:220px;
+	overflow:auto;
+	border:1px solid #666;
+	background-color:#fff;
+}
+#ville_depart, #ville_arrivee, #ville_etape1, #ville_etape2, #ville_etape3 {
+	display:block;
+	width:210px;
+	margin:0;
+	padding:0;
+	list-style:none;
+	background-color:#fff;
+}
+#ville_depart li a, #ville_arrivee li a, #ville_etape1 li a, #ville_etape2 li a, #ville_etape3 li a {
+	margin:0;
+	padding:0;
+	display:block;
+	line-height:20px;
+	width:190px;
+	padding:0 10px;
+	font-size:14px;
+	color:#3b629d;
+	text-decoration:none;
+}
+#ville_depart li a:hover, #ville_depart li:first-child a, #ville_arrivee li a:hover, #ville_arrivee li:first-child a, #ville_etape1 li a:hover, #ville_etape1 li:first-child a, #ville_etape2 li a:hover, #ville_etape2 li:first-child a, #ville_etape3 li a:hover, #ville_etape3 li:first-child a{
+	background-color:#3b629d;
+	cursor:pointer;
+	color:#fff;
+}
+#recherche, #rechercheplus {
+	background-color:#3b629d;
+	padding:10px 15px;
+	color:#fff;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+#newadd {
+	background:#ef792f url(../images/new-add.jpg) 12px 12px no-repeat;
+	color:#fff;
+	display:block;
+	height:45px;
+	text-align:center;
+	width:100px;
+	font-size:1.5em;
+	text-decoration:none;
+	padding:22px 20px 12px 84px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+/*#liste_depart .titre {
+	display:block;
+	height:29px;
+	line-height:29px;
+	font-size:14px;
+	background-color:#999;
+}*/
+.close {
+	display:block;
+	height:18px;
+	line-height:18px;
+	font-size:11px;
+	text-decoration:none;
+	text-align:center;
+	width:50px;
+	position:absolute;
+	right:0px;
+	top:0px;
+	color:#fff;
+	background-color:#be3434;
+}
+#DEPART, #ARRIVEE, #ETAPE1, #ETAPE2, #ETAPE3 {
+	padding:0 5px 0 22px;
+	height:25px;
+	line-height:22px;
+	background:#fff url(../images/fleche.png) 1px 5px no-repeat;
+}
+#DATE_PARCOURS {
+	height:25px;
+	line-height:22px;
+}
+#DEPART.check, #ARRIVEE.check, #ETAPE1.check, #ETAPE2.check, #ETAPE3.check {
+	background-image:url(../images/check.jpg);
+}
+#DEPART.wait, #ARRIVEE.wait, #ETAPE1.wait, #ETAPE2.wait, #ETAPE3.wait {
+	background-image:url(../images/wait.gif);
+}
+#contenu a {
+	color:#ef792f;
+}
+.dispo4, .dispo3, .dispo2{
+	color:#83be54;
+}
+.dispo1, h3  {
+	color:#ef792f;
+}
+.dispo0 {
+	color:#be3434;
+}
+#detailtrajet {
+	font-size:1.2em;
+}
+#contenu a.lienannonce {
+	text-decoration:none;
+	background-color:#83be54;
+	color:#fff;
+	display:block;
+	padding:5px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	font-size:14px;
+	font-weight:bold;
+	width:150px;
+	text-align:center;
+}
+#contenu a#abusif {
+	display:block;
+	background:#e56255 url(../images/exclamation.png) 5px 5px no-repeat;
+	padding:3px 3px 3px 25px;
+	color:#fff;
+	text-decoration:none;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+}
+.bouton {
+	background-color:#83be54;
+	color:#fff;
+	text-decoration:none;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	padding:3px 10px;
+	border:1px solid #83be54;
+	cursor:pointer;
+}
+#menu {
+	width:280px;
+	margin-top:40px;
+	float:right;
+}
+#menu a {
+	display:inline-block;
+	width:60px;
+	height:70px;
+	margin-right:10px;
+	text-align:center;
+	text-decoration:none;
+	color:#9e9e9e;
+}
+	#menu a#pourquoi {
+		background:url(../images/menu/pourquoi-off.jpg) bottom center no-repeat;
+	}
+	#menu a#pourquoi:hover {
+		background:url(../images/menu/pourquoi-on.jpg) bottom center no-repeat;
+		color:#7ebd55;
+	}
+	#menu a#don {
+		background:url(../images/menu/don-off.jpg) bottom center no-repeat;
+	}
+	#menu a#don:hover {
+		background:url(../images/menu/don-on.jpg) bottom center no-repeat;
+		color:#be3434;
+	}
+	#menu a#missions {
+		background:url(../images/menu/missions-off.jpg) bottom center no-repeat;
+	}
+	#menu a#missions:hover {
+		background:url(../images/menu/missions-on.jpg) bottom center no-repeat;
+		color:#3b629d;
+	}
+	#menu a#bug {
+		margin:0;
+		background:url(../images/menu/bug-off.jpg) bottom center no-repeat;
+	}
+	#menu a#bug:hover {
+		background:url(../images/menu/bug-on.jpg) bottom center no-repeat;
+		color:#ef792f;
+	}
+
+
+#pagenav {
+	width:100%;
+	margin-top:15px;
+	text-align:center;
+}
+#navlink {
+	display:inline-block;
+}
+#pagenav a.pagenavnum {
+    border: 1px solid;
+    display: block;
+	float:left;
+    font-size: 14px;
+	text-decoration:none;
+    margin:0 5px;
+	height:25px;
+	line-height:25px;
+    text-decoration: none;
+    width: 25px;
+}
+#contenu a.pagenavnum:hover,
+#contenu a.pagenavnum.pagenavnumactive {
+	color:#fff;
+	border: 1px solid #3B629D;
+	background-color:#3B629D;
+}
+#contenu a.pagenavnum.pagenavnumactive{
+	border:#3B629D 1px solid;
+}
+.flecheg, .flecheg2, .fleched, .fleched2 {
+	display:inline-block;
+	width:14px;
+	height:25px;
+}
+.flecheg2, .fleched2 {
+	margin:0 10px;
+}
+.flecheg {background:url(../images/fleche-gauche.jpg);}.flecheg:hover {background:url(../images/fleche-gauche-over.jpg);}
+.flecheg2 {background:url(../images/fleche-gauche2.jpg);}.flecheg2:hover {background:url(../images/fleche-gauche2-over.jpg);}
+.fleched {background:url(../images/fleche-droite.jpg);}.fleched:hover {background:url(../images/fleche-droite-over.jpg);}
+.fleched2 {background:url(../images/fleche-droite2.jpg);}.fleched2:hover {background:url(../images/fleche-droite2-over.jpg);}
+#navgauche, #navdroite {
+	display:inline-block;
+	width:55px;
+}
+.header_nav {
+	color:#999;
+	padding:0 0 20px 10px;
+	font-size:13px;
+}
+#criteres {
+	display:block;
+	padding-left:20px;
+	background:url(../images/criteresoff.jpg) left top no-repeat;
+	color:#fff;
+	text-decoration:none;
+	font-size:14px;
+	font-weight:bold;
+}
+#criteresliste {
+	display:none;
+}
+#criteres.on {
+	background:url(../images/critereson.jpg) left top no-repeat;
+}
+.selection {
+	font-weight:bold;
+	color:#be3434;
+}
+.listepays {
+	width:100px;
+	height:20px;
+	overflow:hidden;
+	position:absolute;
+}
+#recherche .listepays a {
+	color:#fff;
+}
+#FR, #BE, #IT, #LU, #DE, #NL, #ES, #SS, #DE {
+	display:block;
+	padding-left:38px;
+	text-decoration:none;
+	height:20px;
+	line-height:20px;
+	width:62px;
+}
+#FR {background:url(../images/flag-france.jpg) left no-repeat;}
+#BE {background:url(../images/flag-belgique.jpg) left no-repeat;}
+#IT {background:url(../images/flag-italie.jpg) left no-repeat;}
+#LU {background:url(../images/flag-luxembourg.jpg) left no-repeat;}
+#NL {background:url(../images/flag-paysbas.jpg) left no-repeat;}
+#DE {background:url(../images/flag-allemagne.jpg) left no-repeat;}
+#ES {background:url(../images/flag-espagne.jpg) left no-repeat;}
+#SS {background:url(../images/flag-suisse.jpg) left no-repeat;}
+
+#recherche a {
+	color:#fff;
+}
+
+/* PAYS */
+div.choice {
+	background-color:#FFF;
+	border:1px solid #CCC;
+}
+table.flags_table {
+	/*background-color:#7FBE55;*/
+	background-color:#fff;
+	border:#3b629d 1px solid;
+	display:none;
+	position:absolute;
+	top: -7px;
+	left: 47px;
+	z-index:1020;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-moz-box-shadow: 0px 0px 10px #ccc;
+	-webkit-box-shadow: 0px 0px 10px #ccc;
+	box-shadow: 0px 0px 10px #ccc;
+	opacity: 0.95;
+	-ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity = 95);
+	filter: alpha(opacity = 95);
+
+}
+.flags_table img,
+.flags_table input {
+	cursor:pointer;	
+}
+a.pays_ {
+	display:inline-block;
+	padding:0 4px 0 16px;
+	margin-left:5px;
+	height:22px;
+	line-height:22px;
+	/*border:2px solid #999;
+	border-bottom:2px solid #CCC;
+	border-right:2px solid #CCC;*/
+	background:url(../images/fleche.png) left no-repeat;
+	color:#666;
+	text-decoration: none;
+	cursor:pointer;
+}
+#recherche a.pays_ {
+	color:#fff;
+}
+#contenu a.pays_ {
+	color:#666;
+}
+#recherche a.pays_ span, #contenu a.pays_ span {
+	background:url(../images/flags/flag-FR2.jpg) top center no-repeat;
+	color:#000;
+	display:inline-block;
+	height:17px;
+	margin-bottom:-4px;
+	text-align:center;
+	width:25px;
+	font-size:8px;
+	text-shadow: 0px 0px 1px #fff;
+	font-weight:bold;
+}
+	#recherche a.pays_ span.ES, #contenu a.pays_ span.ES {
+	background:url(../images/flags/flag-ES2.jpg) top center no-repeat;
+	}
+	#recherche a.pays_ span.DE, #contenu a.pays_ span.DE {
+	background:url(../images/flags/flag-DE2.jpg) top center no-repeat;
+	}
+	#recherche a.pays_ span.LU, #contenu a.pays_ span.LU {
+	background:url(../images/flags/flag-LU2.jpg) top center no-repeat;
+	}
+	#recherche a.pays_ span.IT, #contenu a.pays_ span.IT {
+	background:url(../images/flags/flag-IT2.jpg) top center no-repeat;
+	}
+	#recherche a.pays_ span.CH, #contenu a.pays_ span.CH {
+	background:url(../images/flags/flag-CH2.jpg) top center no-repeat;
+	}
+	#recherche a.pays_ span.NL, #contenu a.pays_ span.NL {
+	background:url(../images/flags/flag-NL2.jpg) top center no-repeat;
+	}
+	#recherche a.pays_ span.FR, #contenu a.pays_ span.FR {
+	background:url(../images/flags/flag-FR2.jpg) top center no-repeat;
+	}
+	#recherche a.pays_ span.BE, #contenu a.pays_ span.BE {
+	background:url(../images/flags/flag-BE2.jpg) top center no-repeat;
+	}
+/* /PAYS */
+
+/* Cartouche à droite home page */
+#droite {
+	float:right;
+	width:270px;
+	padding:10px;
+	/*background-color:#f5f5f5;gris*/
+	background-color:#ef792f;/*orange*/
+	/*background-color:#3b629d;bleu*/
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	margin:0 0 15px 20px;
+}
+	#droite .fb-like-box {
+		background-color:#fff;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		margin-bottom:10px;
+		width:270px !important;
+	}
+	#droite .actu {
+		background-color:#fff;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+		border-radius: 10px;
+		margin-bottom:10px;
+		padding:10px;
+		width:250px;
+	}
+	#droite .date {
+		margin-top:-3px;
+		font-size:11px;
+	}
+	#droite h2 {
+		color:#3b629d;
+		border-bottom:1px dotted #87A4CE;
+	}
+	#droite h3 {
+		color:#555;
+		font-size:14px;
+	}
+	#droite a {
+		color:#3b629d;
+	}
+	#droite ul {
+		padding:0 0 5px 18px;
+		list-style:square;
+	}
+
+#contenu ul {
+	margin:0 0 15px 0;
+}
+#contenu .encart {
+	float:left;
+	width:300px;
+	margin-right:30px;
+	text-align:justify;
+}
+#footer a {
+	color:#FFF;
+}
