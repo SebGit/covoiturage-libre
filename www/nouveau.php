@@ -156,7 +156,40 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
   $Result1 = mysql_query($insertSQL, $bddcovoiturette) or die(mysql_error());
 
-  $insertGoTo = "confirmation.php?c=".$wpas;
+  $insertGoTo = "confirmation.php?c=".$wpas
+  	.'&TYPE='.$_POST['TYPE']
+	.'&ARRIVEE='.$_POST['ARRIVEE']
+	.'&ARRIVEE_LAT='.$_POST['ARRIVEE_LAT']
+	.'&ARRIVEE_LON='.$_POST['ARRIVEE_LON']
+	.'&HARRY='.$_POST['HARRY']
+	.'&DEPART='.$_POST['DEPART']
+	.'&DEPART_LAT='.$_POST['DEPART_LAT']
+	.'&DEPART_LON='.$_POST['DEPART_LON']
+	.'&GERARD='.$_POST['GERARD']
+	.'&DATE_PARCOURS='.$_POST['DATE_PARCOURS']
+	.'&HEURE_H='.$_POST['HEURE_H']
+	.'&HEURE_M='.$_POST['HEURE_M']
+	.'&PLACES='.$_POST['PLACES']
+	.'&CONFORT='.$_POST['CONFORT']
+	.'&PRIX='.$_POST['PRIX']
+	.'&ETAPE1='.$_POST['ETAPE1']
+	.'&ETAPE1_LAT='.$_POST['ETAPE1_LAT']
+	.'&ETAPE1_LON='.$_POST['ETAPE1_LON']
+	.'&PRIX1='.$_POST['PRIX1']
+	.'&ETAPE2='.$_POST['ETAPE2']
+	.'&ETAPE2_LAT='.$_POST['ETAPE2_LAT']
+	.'&ETAPE2_LON='.$_POST['ETAPE2_LON']
+	.'&PRIX2='.$_POST['PRIX2']
+	.'&ETAPE3='.$_POST['ETAPE3']
+	.'&ETAPE3_LAT='.$_POST['ETAPE3_LAT']
+	.'&ETAPE3_LON='.$_POST['ETAPE3_LON']
+	.'&PRIX3='.$_POST['PRIX3']
+	.'&CIVILITE='.$_POST['CIVILITE']
+	.'&NOM='.$_POST['NOM']
+	.'&AGE='.$_POST['AGE']
+	.'&TELEPHONE='.$_POST['TELEPHONE']
+	.'&EMAIL='.$_POST['EMAIL'];
+  
   if (isset($_SERVER['QUERY_STRING'])) {
     $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
     $insertGoTo .= $_SERVER['QUERY_STRING'];
@@ -226,7 +259,7 @@ function showItineraire() {
    if (status == google.maps.DirectionsStatus.OK){
     directionsDisplay.setDirections(result);
    } else {
-    alert('Le calcul d\'itinéraire a échoué.');
+    alert('Le calcul d\'itinï¿½raire a ï¿½chouï¿½.');
    }
   });
  }
@@ -374,71 +407,71 @@ $(document).ready(function(){
 	{
 		if(document.form1.TYPE[i].checked){sujetoption = i}
 	}
-	if (sujetoption == -1){alert("Veuillez indiquer si vous êtes conducteur ou passager s'il vous plaît");return false;}
+	if (sujetoption == -1){alert("Veuillez indiquer si vous ï¿½tes conducteur ou passager s'il vous plaï¿½t");return false;}
 else
 	if(document.form1.DEPART.value=='')
-	{alert('Veuillez préciser un lieu de départ s\'il vous plaît');document.form1.DEPART.focus();return false;}
+	{alert('Veuillez prï¿½ciser un lieu de dï¿½part s\'il vous plaï¿½t');document.form1.DEPART.focus();return false;}
 else
 	if(document.form1.DEPART_LAT.value=='')
-	{alert('Veuillez préciser un lieu de départ dans la liste de suggestions s\'il vous plaît');document.form1.DEPART.focus();return false;}
+	{alert('Veuillez prï¿½ciser un lieu de dï¿½part dans la liste de suggestions s\'il vous plaï¿½t');document.form1.DEPART.focus();return false;}
 else
 	if(document.form1.ARRIVEE.value=='')
-	{alert('Veuillez préciser un lieu d\'arrivée s\'il vous plaît');document.form1.ARRIVEE.focus();return false;}
+	{alert('Veuillez prï¿½ciser un lieu d\'arrivï¿½e s\'il vous plaï¿½t');document.form1.ARRIVEE.focus();return false;}
 else
 	if(document.form1.ARRIVEE_LAT.value=='')
-	{alert('Veuillez préciser un lieu d\'arrivée dans la liste de suggestions s\'il vous plaît');document.form1.ARRIVEE.focus();return false;}
+	{alert('Veuillez prï¿½ciser un lieu d\'arrivï¿½e dans la liste de suggestions s\'il vous plaï¿½t');document.form1.ARRIVEE.focus();return false;}
 else
 	if(document.form1.DATE_PARCOURS.value=='')
-	{alert('Veuillez préciser la date de votre trajet s\'il vous plaît');document.form1.DATE_PARCOURS.focus();return false;}
+	{alert('Veuillez prï¿½ciser la date de votre trajet s\'il vous plaï¿½t');document.form1.DATE_PARCOURS.focus();return false;}
 else
 	if((document.form1.TYPE[0].checked)&&(document.form1.PLACES.value==''))
-	{alert('Veuillez préciser le nombre de places disponibles s\'il vous plaît');document.form1.PLACES.focus();return false;}
+	{alert('Veuillez prï¿½ciser le nombre de places disponibles s\'il vous plaï¿½t');document.form1.PLACES.focus();return false;}
 else 
 	sujetoption = -1
 	for (i=0; i<document.form1.CONFORT.length; i++)
 	{
 		if(document.form1.CONFORT[i].checked){sujetoption = i}
 	}
-	if ((document.form1.TYPE[0].checked)&&(sujetoption == -1)){alert("Veuillez indiquer le niveau de confort de votre véhicule s'il vous plaît");return false;}
+	if ((document.form1.TYPE[0].checked)&&(sujetoption == -1)){alert("Veuillez indiquer le niveau de confort de votre vï¿½hicule s'il vous plaï¿½t");return false;}
 else
 	if((document.form1.TYPE[0].checked)&&(document.form1.PRIX.value==''))
-	{alert('Veuillez préciser le prix du trajet s\'il vous plaît');document.form1.PRIX.focus();return false;}
+	{alert('Veuillez prï¿½ciser le prix du trajet s\'il vous plaï¿½t');document.form1.PRIX.focus();return false;}
 else
 	if((document.form1.TYPE[0].checked)&&(document.form1.ETAPE1.value!=='')&&(document.form1.ETAPE1_LAT.value==''))
-	{alert('Veuillez préciser une première étape dans la liste de suggestions s\'il vous plaît');document.form1.ETAPE1.focus();return false;}
+	{alert('Veuillez prï¿½ciser une premiï¿½re ï¿½tape dans la liste de suggestions s\'il vous plaï¿½t');document.form1.ETAPE1.focus();return false;}
 else
 	if((document.form1.TYPE[0].checked)&&(document.form1.ETAPE1.value!=='')&&(document.form1.PRIX1.value==''))
-	{alert('Veuillez préciser le prix de la première étape s\'il vous plaît');document.form1.PRIX1.focus();return false;}
+	{alert('Veuillez prï¿½ciser le prix de la premiï¿½re ï¿½tape s\'il vous plaï¿½t');document.form1.PRIX1.focus();return false;}
 else
 	if((document.form1.TYPE[0].checked)&&(document.form1.ETAPE2.value!=='')&&(document.form1.ETAPE2_LAT.value==''))
-	{alert('Veuillez préciser une seconde étape dans la liste de suggestions s\'il vous plaît');document.form1.ETAPE2.focus();return false;}
+	{alert('Veuillez prï¿½ciser une seconde ï¿½tape dans la liste de suggestions s\'il vous plaï¿½t');document.form1.ETAPE2.focus();return false;}
 else
 	if((document.form1.TYPE[0].checked)&&(document.form1.ETAPE2.value!=='')&&(document.form1.PRIX2.value==''))
-	{alert('Veuillez préciser le prix de la seconde étape s\'il vous plaît');document.form1.PRIX2.focus();return false;}
+	{alert('Veuillez prï¿½ciser le prix de la seconde ï¿½tape s\'il vous plaï¿½t');document.form1.PRIX2.focus();return false;}
 else
 	if((document.form1.TYPE[0].checked)&&(document.form1.ETAPE3.value!=='')&&(document.form1.ETAPE3_LAT.value==''))
-	{alert('Veuillez préciser une troisième étape dans la liste de suggestions s\'il vous plaît');document.form1.ETAPE3.focus();return false;}
+	{alert('Veuillez prï¿½ciser une troisiï¿½me ï¿½tape dans la liste de suggestions s\'il vous plaï¿½t');document.form1.ETAPE3.focus();return false;}
 else
 	if((document.form1.TYPE[0].checked)&&(document.form1.ETAPE3.value!=='')&&(document.form1.PRIX3.value==''))
-	{alert('Veuillez préciser le prix de la troisième étape s\'il vous plaît');document.form1.PRIX3.focus();return false;}
+	{alert('Veuillez prï¿½ciser le prix de la troisiï¿½me ï¿½tape s\'il vous plaï¿½t');document.form1.PRIX3.focus();return false;}
 else
 	sujetoption = -1
 	for (i=0; i<document.form1.CIVILITE.length; i++)
 	{
 		if(document.form1.CIVILITE[i].checked){sujetoption = i}
 	}
-	if (sujetoption == -1){alert("Veuillez indiquer si vous êtes un homme ou une femme s'il vous plaît");return false;}
+	if (sujetoption == -1){alert("Veuillez indiquer si vous ï¿½tes un homme ou une femme s'il vous plaï¿½t");return false;}
 else
 	if(document.form1.NOM.value=='')
-	{alert('Veuillez préciser votre nom / pseudo s\'il vous plaît');document.form1.NOM.focus();return false;}
+	{alert('Veuillez prï¿½ciser votre nom / pseudo s\'il vous plaï¿½t');document.form1.NOM.focus();return false;}
 else
 	if(document.form1.EMAIL.value=='')
-	{alert('Veuillez préciser votre adresse e-mail s\'il vous plaît');document.form1.EMAIL.focus();return false;}
+	{alert('Veuillez prï¿½ciser votre adresse e-mail s\'il vous plaï¿½t');document.form1.EMAIL.focus();return false;}
 else
-	var illegal = new RegExp("[\(\),;:!?<>\$àç&éùèâêî\*\^\'\"]+","g");
+	var illegal = new RegExp("[\(\),;:!?<>\$ï¿½ï¿½&ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\*\^\'\"]+","g");
 	var legal = new RegExp("^\\w[\\w\-\_\.]*\\w@\\w[\\w\-\_\.]*\\w\\.\\w{2,4}$");
 	var c=document.form1.EMAIL.value;
-	if((illegal.test(c)==true)||(legal.test(c)!=true)){alert("L'adresse e-mail qui a été saisie est incorrecte");return false;}
+	if((illegal.test(c)==true)||(legal.test(c)!=true)){alert("L'adresse e-mail qui a ï¿½tï¿½ saisie est incorrecte");return false;}
 return true
 }
 </script>
@@ -490,9 +523,9 @@ $(document).ready(function() {
         </tr>
         <tr>
           <td style="width:190px;">Je suis <span class="dispo1">*</span></td>
-          <td><input type="radio" name="TYPE" value="Conducteur" id="TYPE_0" onclick="conducteur()" />
+          <td><input type="radio" name="TYPE" value="Conducteur" id="TYPE_0" onclick="conducteur()"<?php echo $_GET['TYPE'] == 'Conducteur' ? ' checked="checked"' : ''; ?> />
             <label for="TYPE_0">Conducteur</label>
-            <input type="radio" name="TYPE" value="Passager" id="TYPE_1" onclick="conducteur()" />
+            <input type="radio" name="TYPE" value="Passager" id="TYPE_1" onclick="conducteur()"<?php echo $_GET['TYPE'] == 'Passager' ? ' checked="checked"' : ''; ?> />
             <label for="TYPE_1">Passager</label></td>
         </tr>
         <tr>
@@ -500,20 +533,20 @@ $(document).ready(function() {
           <?php $pays_desc = 'depart'; require("include/pays_choix.php"); ?>
           </td>
           <td id="focusdepart">
-          <input name="DEPART" type="text" id="DEPART" size="25" onkeyup="depart()" onfocus="blank()" /><div id="liste_depart"></div>
-          <input type="hidden" name="DEPART_LAT" id="DEPART_LAT" value="" />
-          <input type="hidden" name="DEPART_LON" id="DEPART_LON" value="" />
-          <input type="hidden" name="GERARD" id="GERARD" /> <a href="manque-une-ville.html" class="iframe">&gt; il manque une ville ?</a></td>
+          <input name="DEPART" type="text" id="DEPART" size="25" onkeyup="depart()" onfocus="blank()" value="<?php echo $_GET['DEPART']; ?>" /><div id="liste_depart"></div>
+          <input type="hidden" name="DEPART_LAT" id="DEPART_LAT" value="<?php echo $_GET['DEPART_LAT']; ?>" />
+          <input type="hidden" name="DEPART_LON" id="DEPART_LON" value="<?php echo $_GET['DEPART_LON']; ?>" />
+          <input type="hidden" name="GERARD" id="GERARD" value="<?php echo $_GET['GERARD']; ?>" /> <a href="manque-une-ville.html" class="iframe">&gt; il manque une ville ?</a></td>
         </tr>
         <tr>
           <td>Ville d'arriv&eacute;e <span class="dispo1">*</span>
           	<?php $pays_desc = 'arrivee'; require("include/pays_choix.php"); ?>
           </td>
           <td>
-          <input name="ARRIVEE" type="text" id="ARRIVEE" size="25" onkeyup="arrivee()" onfocus="blank2()" /><div id="liste_arrivee"></div>
-          <input type="hidden" name="ARRIVEE_LAT" id="ARRIVEE_LAT" value="" />
-          <input type="hidden" name="ARRIVEE_LON" id="ARRIVEE_LON" value="" />
-          <input type="hidden" name="HARRY" id="HARRY" /></td>
+          <input name="ARRIVEE" type="text" id="ARRIVEE" size="25" onkeyup="arrivee()" onfocus="blank2()" value="<?php echo $_GET['ARRIVEE']; ?>" /><div id="liste_arrivee"></div>
+          <input type="hidden" name="ARRIVEE_LAT" id="ARRIVEE_LAT" value="<?php echo $_GET['ARRIVEE_LAT']; ?>" />
+          <input type="hidden" name="ARRIVEE_LON" id="ARRIVEE_LON" value="<?php echo $_GET['ARRIVEE_LON']; ?>" />
+          <input type="hidden" name="HARRY" id="HARRY" value="<?php echo $_GET['HARRY']; ?>" /></td>
         </tr>
         <tr>
           <td>&nbsp;</td>
@@ -578,28 +611,28 @@ $(document).ready(function() {
           <td><label for="PLACES"></label>
             <select name="PLACES" id="PLACES">
             <option value=""></option>
-			  <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
+			  <option value="1"<?php echo $_GET['PLACES'] == 1 ? ' selected="selected"' : ''; ?>>1</option>
+              <option value="2"<?php echo $_GET['PLACES'] == 2 ? ' selected="selected"' : ''; ?>>2</option>
+              <option value="3"<?php echo $_GET['PLACES'] == 3 ? ' selected="selected"' : ''; ?>>3</option>
+              <option value="4"<?php echo $_GET['PLACES'] == 4 ? ' selected="selected"' : ''; ?>>4</option>
 </select></td>
         </tr>
         <tr class="conducteur">
           <td>Confort du v&eacute;hicule <span class="dispo1">*</span></td>
-          <td><input type="radio" name="CONFORT" value="Basique" id="CONFORT_0" />
+          <td><input type="radio" name="CONFORT" value="Basique" id="CONFORT_0"<?php echo $_GET['CONFORT'] == 'Basique' ? ' checked="checked"' : ''; ?> />
 Basique
-<input type="radio" name="CONFORT" value="Normal" id="CONFORT_1" />
+<input type="radio" name="CONFORT" value="Normal" id="CONFORT_1"<?php echo $_GET['CONFORT'] == 'Normal' ? ' checked="checked"' : ''; ?> />
 Normal
-<input type="radio" name="CONFORT" value="Confortable" id="CONFORT_2" />
+<input type="radio" name="CONFORT" value="Confortable" id="CONFORT_2"<?php echo $_GET['CONFORT'] == 'Confortable' ? ' checked="checked"' : ''; ?> />
 Confortable
-<input type="radio" name="CONFORT" value="Luxe" id="CONFORT_3" />
+<input type="radio" name="CONFORT" value="Luxe" id="CONFORT_3"<?php echo $_GET['CONFORT'] == 'Luxe' ? ' checked="checked"' : ''; ?> />
 Luxe</td>
         </tr>
         <tr class="conducteur">
           <td>Prix par personne <span class="dispo1">*</span></td>
           <td>
             
-            <input name="PRIX" type="text" id="PRIX" size="3" maxlength="3" />
+            <input name="PRIX" type="text" id="PRIX" size="3" maxlength="3" value="<?php echo $_GET['PRIX']; ?>" />
 &euro; <a href="infos-assurance.html" class="iframe" style="margin-left:40px;">&gt; ne cherchez pas &agrave; faire de b&eacute;n&eacute;fices</a></td>
         </tr>
          <tr class="conducteur">
@@ -623,10 +656,10 @@ Luxe</td>
               	 <?php $pays_desc = 'etape1'; require("include/pays_choix.php"); ?>
               </td>
               <td>
-                <input name="ETAPE1" type="text" id="ETAPE1" size="25" onkeyup="etape1()" onfocus="blank3()" /><div id="liste_etape1"></div>
-                <input type="hidden" name="ETAPE1_LAT" id="ETAPE1_LAT" value="" />
-                <input type="hidden" name="ETAPE1_LON" id="ETAPE1_LON" value="" /></td>
-              <td align="center"><input name="PRIX1" type="text" id="PRIX1" size="3" maxlength="3" value="" /> 
+                <input name="ETAPE1" type="text" id="ETAPE1" size="25" onkeyup="etape1()" onfocus="blank3()" value="<?php echo $_GET['ETAPE1']; ?>" /><div id="liste_etape1"></div>
+                <input type="hidden" name="ETAPE1_LAT" id="ETAPE1_LAT" value="<?php echo $_GET['ETAPE1_LAT']; ?>" />
+                <input type="hidden" name="ETAPE1_LON" id="ETAPE1_LON" value="<?php echo $_GET['ETAPE1_LON']; ?>" /></td>
+              <td align="center"><input name="PRIX1" type="text" id="PRIX1" size="3" maxlength="3" value="<?php echo $_GET['PRIX1']; ?>" /> 
                 &euro;</td>
             </tr>
             <tr>
@@ -634,10 +667,11 @@ Luxe</td>
               	 <?php $pays_desc = 'etape2'; require("include/pays_choix.php"); ?>
               </td>
               <td>
-                <input name="ETAPE2" type="text" id="ETAPE2" size="25" onkeyup="etape2()" onfocus="blank4()" /><div id="liste_etape2"></div><input type="hidden" name="ETAPE2_LAT" id="ETAPE2_LAT" value="" />
-                <input type="hidden" name="ETAPE2_LON" id="ETAPE2_LON" value="" />
+                <input name="ETAPE2" type="text" id="ETAPE2" size="25" onkeyup="etape2()" onfocus="blank4()" value="<?php echo $_GET['ETAPE2']; ?>" /><div id="liste_etape2"></div>
+                <input type="hidden" name="ETAPE2_LAT" id="ETAPE2_LAT" value="<?php echo $_GET['ETAPE2_LAT']; ?>" />
+                <input type="hidden" name="ETAPE2_LON" id="ETAPE2_LON" value="<?php echo $_GET['ETAPE2_LON']; ?>" />
               </td>
-              <td align="center"><input name="PRIX2" type="text" id="PRIX2" size="3" maxlength="3" value="" /> 
+              <td align="center"><input name="PRIX2" type="text" id="PRIX2" size="3" maxlength="3" value="<?php echo $_GET['PRIX2']; ?>" /> 
                 &euro;</td>
             </tr>
             <tr>
@@ -645,10 +679,11 @@ Luxe</td>
               	 <?php $pays_desc = 'etape3'; require("include/pays_choix.php"); ?>
               </td>
               <td>
-                <input name="ETAPE3" type="text" id="ETAPE3" size="25" onkeyup="etape3()" onfocus="blank5()" /><div id="liste_etape3"></div><input type="hidden" name="ETAPE3_LAT" id="ETAPE3_LAT" value="" />
-                <input type="hidden" name="ETAPE3_LON" id="ETAPE3_LON" value="" />
+                <input name="ETAPE3" type="text" id="ETAPE3" size="25" onkeyup="etape3()" onfocus="blank5()" value="<?php echo $_GET['ETAPE3']; ?>" /><div id="liste_etape3"></div>
+                <input type="hidden" name="ETAPE3_LAT" id="ETAPE3_LAT" value="<?php echo $_GET['ETAPE3_LAT']; ?>" />
+                <input type="hidden" name="ETAPE3_LON" id="ETAPE3_LON" value="<?php echo $_GET['ETAPE3_LON']; ?>" />
                 </td>
-              <td align="center"><input name="PRIX3" type="text" id="PRIX3" size="3" maxlength="3" value="" /> 
+              <td align="center"><input name="PRIX3" type="text" id="PRIX3" size="3" maxlength="3" value="<?php echo $_GET['PRIX3']; ?>" /> 
                 &euro;</td>
             </tr>
           </table></td>
@@ -674,26 +709,26 @@ Luxe</td>
         </tr>
         <tr>
           <td>Vous &ecirc;tes <span class="dispo1">*</span></td>
-          <td><input type="radio" name="CIVILITE" value="homme" id="CIVILITE_0" />
+          <td><input type="radio" name="CIVILITE" value="homme" id="CIVILITE_0"<?php echo $_GET['CIVILITE'] == 'homme' ? ' checked="checked"' : '' ?> />
 un homme
-  <input type="radio" name="CIVILITE" value="femme" id="CIVILITE_1" />
+  <input type="radio" name="CIVILITE" value="femme" id="CIVILITE_1"<?php echo $_GET['CIVILITE'] == 'femme' ? ' checked="checked"' : '' ?> />
 une femme</td>
         </tr>
         <tr>
           <td>Votre nom/pseudo<span class="dispo1">*</span></td>
           <td><label for="NOM"></label>
-          <input type="text" name="NOM" id="NOM" /></td>
+          <input type="text" name="NOM" id="NOM" value="<?php echo $_GET['NOM']; ?>" /></td>
         </tr>
         <tr>
           <td>Votre &acirc;ge <em>(facultatif)</em></td>
           <td><label for="AGE"></label>
-          <input name="AGE" type="text" id="AGE" size="3" maxlength="3" /> 
+          <input name="AGE" type="text" id="AGE" value="<?php echo $_GET['AGE']; ?>" size="3" maxlength="3" /> 
           ans</td>
         </tr>
         <tr>
           <td>Votre t&eacute;l&eacute;phone portable</td>
           <td><label for="TELEPHONE"></label>
-          <input type="text" name="TELEPHONE" id="TELEPHONE" /></td>
+          <input type="text" name="TELEPHONE" id="TELEPHONE" value="<?php echo $_GET['TELEPHONE']; ?>" /></td>
         </tr>
         <tr>
           <td>&nbsp;</td>
@@ -702,7 +737,7 @@ une femme</td>
         <tr>
           <td>Votre email <span class="dispo1">*</span></td>
           <td><label for="EMAIL"></label>
-          <input type="text" name="EMAIL" id="EMAIL" /></td>
+          <input type="text" name="EMAIL" id="EMAIL" value="<?php echo $_GET['EMAIL']; ?>" /></td>
         </tr>
         <tr>
           <td>&nbsp;</td>

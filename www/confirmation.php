@@ -45,7 +45,7 @@ $sqldate = $row_RSannonce['DATE_PARCOURS'];
 			
 			(preg_match("/([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})/", $sqldate, $regs));
 			$jour = array("Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"); 
-		$mois = array("","Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre");
+		$mois = array("","Janvier","Fï¿½vrier","Mars","Avril","Mai","Juin","Juillet","Aoï¿½t","Septembre","Octobre","Novembre","Dï¿½cembre");
 		$datefr = $jour[date("w",mktime(0, 0, 0, $regs[2], $regs[3], $regs[1]))];
 		$datefr .= " ".date("d",mktime(0, 0, 0, $regs[2], $regs[3], $regs[1]));
 		$datefr .= " ".$mois[date("n",mktime(0, 0, 0, $regs[2], $regs[3], $regs[1]))];
@@ -93,10 +93,41 @@ $sqldate = $row_RSannonce['DATE_PARCOURS'];
 	$mail->MsgHTML($message);
 	
 	if($mail->Send()){
-		$erreur = "Votre message a bien été envoyé à l'administrateur du site.";
+		$erreur = "Votre message a bien ï¿½tï¿½ envoyï¿½ ï¿½ l'administrateur du site.";
 	} else {
 		$erreur = "problem !";
 	}
+	
+	$trajetRetourUrl = 'nouveau.php'
+			.'?TYPE='.$_GET['TYPE']
+			.'&ARRIVEE='.$_GET['DEPART']
+			.'&ARRIVEE_LAT='.$_GET['DEPART_LAT']
+			.'&ARRIVEE_LON='.$_GET['DEPART_LON']
+			.'&HARRY='.$_GET['GERARD']
+			.'&DEPART='.$_GET['ARRIVEE']
+			.'&DEPART_LAT='.$_GET['ARRIVEE_LAT']
+			.'&DEPART_LON='.$_GET['ARRIVEE_LON']
+			.'&GERARD='.$_GET['HARRY']
+			.'&PLACES='.$_GET['PLACES']
+			.'&CONFORT='.$_GET['CONFORT']
+			.'&PRIX='.$_GET['PRIX']
+			.'&ETAPE1='.$_GET['ETAPE3']
+			.'&ETAPE1_LAT='.$_GET['ETAPE3_LAT']
+			.'&ETAPE1_LON='.$_GET['ETAPE3_LON']
+			.'&PRIX1='.$_GET['PRIX3']
+			.'&ETAPE2='.$_GET['ETAPE2']
+			.'&ETAPE2_LAT='.$_GET['ETAPE2_LAT']
+			.'&ETAPE2_LON='.$_GET['ETAPE2_LON']
+			.'&PRIX2='.$_GET['PRIX2']
+			.'&ETAPE3='.$_GET['ETAPE1']
+			.'&ETAPE3_LAT='.$_GET['ETAPE1_LAT']
+			.'&ETAPE3_LON='.$_GET['ETAPE1_LON']
+			.'&PRIX3='.$_GET['PRIX1']
+			.'&CIVILITE='.$_GET['CIVILITE']
+			.'&NOM='.$_GET['NOM']
+			.'&AGE='.$_GET['AGE']
+			.'&TELEPHONE='.$_GET['TELEPHONE']
+			.'&EMAIL='.$_GET['EMAIL'];
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/principal.dwt.php" codeOutsideHTMLIsLocked="false" -->
@@ -135,6 +166,8 @@ $sqldate = $row_RSannonce['DATE_PARCOURS'];
 	<p>Sans r&eacute;ponse de votre part dans ce d&eacute;lai, votre annonce sera automatiquement supprim&eacute;e.</p>
 	<p>&nbsp;</p>
 	<p>L'&eacute;quipe d'organisation.</p>
+	
+	<a href="<?php echo $trajetRetourUrl; ?>">Proposer un trajet retour</a>
 	<!-- InstanceEndEditable -->
   </div>
     
