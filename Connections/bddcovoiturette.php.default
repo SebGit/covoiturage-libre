@@ -2,9 +2,10 @@
 # FileName="Connection_php_mysql.htm"
 # Type="MYSQL"
 # HTTP="true"
+# This is the default confiugration file, change it to match your settings
 $hostname_bddcovoiturette = "localhost";
 $database_bddcovoiturette = "covoiturette";
 $username_bddcovoiturette = "root";
-$password_bddcovoiturette = "velorution";
+$password_bddcovoiturette = "";
 $bddcovoiturette = mysql_pconnect($hostname_bddcovoiturette, $username_bddcovoiturette, $password_bddcovoiturette) or trigger_error(mysql_error(),E_USER_ERROR); 
 ?>
