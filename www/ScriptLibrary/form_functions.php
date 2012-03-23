@@ -12,4 +12,9 @@ function getTokenM() {
 	$_SESSION["cvtokenm"] = $token;
     return $token;
 }
+function getTokenMRCF() {
+	$token = sha1(uniqid(mt_rand(), true));
+	$_SESSION["cvtokenmrcf"] = $token;
+    return $token;
+}
 ?>

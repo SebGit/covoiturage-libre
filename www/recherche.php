@@ -105,15 +105,19 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 
 if (isset($_POST) && !empty($_POST)) {
 	$_SESSION['postdata'] = $_POST;
+	header("Location: recherche.php");
+	die();
 } elseif (isset($_SESSION['postdata'])) {
 	$_POST = $_SESSION['postdata'];
 }
 //
 
-$requete = ''; $requete2 = '';
+$requete	= '';
+$requete2	= '';
 
-$departkm=60;
-$arriveekm=60;
+$departkm	= 60;
+$arriveekm	= 60;
+
 if(isset($_POST['DEPART_KM'])){
 	$departkm=$_POST['DEPART_KM'];
 }
@@ -125,10 +129,10 @@ $colname_RStrajets = "-1";
 if (isset($_POST['DEPART'])) {
   $colname_RStrajets = $_POST['DEPART'];
 }
-$depart_lat=GetSQLValueString($_POST['DEPART_LAT'], "double");
-$depart_lon=GetSQLValueString($_POST['DEPART_LON'], "double");
-	
-	//préparation de la recherche sur la ville de départ	
+$depart_lat = GetSQLValueString($_POST['DEPART_LAT'], "double");
+$depart_lon = GetSQLValueString($_POST['DEPART_LON'], "double");
+
+//préparation de la recherche sur la ville de départ	
 $formuledep1="(6366*acos(cos(radians($depart_lat))*cos(radians(`DEPART_LAT`))*cos(radians(`DEPART_LON`) -radians($depart_lon))+sin(radians($depart_lat))*sin(radians(`DEPART_LAT`)))) AS DEP1";
 
 $formuledep2="(6366*acos(cos(radians($depart_lat))*cos(radians(`ETAPE1_LAT`))*cos(radians(`ETAPE1_LON`) -radians($depart_lon))+sin(radians($depart_lat))*sin(radians(`ETAPE1_LAT`)))) AS DEP2";
@@ -145,15 +149,16 @@ $colname_RStrajets2 = "-1";
 if (isset($_POST['ARRIVEE'])) {
   $colname_RStrajets2 = $_POST['ARRIVEE'];
 }
-$order='DATE_PARCOURS ASC, HEURE ASC';
-if((isset($_POST['TRI']))&&($_POST['TRI']!=='DATE HEURE')){
+
+$order = 'DATE_PARCOURS ASC, HEURE ASC';
+if (isset($_POST['TRI']) && $_POST['TRI'] !== 'DATE HEURE') {
 	$order=$_POST['TRI'];
 }
 
 //préparation de la recherche si une ville d'arrivée est renseignée
-if($_POST['ARRIVEE']!==''){
-	$arrivee_lat=GetSQLValueString($_POST['ARRIVEE_LAT'], "double");
-	$arrivee_lon=GetSQLValueString($_POST['ARRIVEE_LON'], "double");
+if ($_POST['ARRIVEE'] !== '') {
+	$arrivee_lat = GetSQLValueString($_POST['ARRIVEE_LAT'], "double");
+	$arrivee_lon = GetSQLValueString($_POST['ARRIVEE_LON'], "double");
 	
 	$formulearr1="(6366*acos(cos(radians($arrivee_lat))*cos(radians(`ARRIVEE_LAT`))*cos(radians(`ARRIVEE_LON`) -radians($arrivee_lon))+sin(radians($arrivee_lat))*sin(radians(`ARRIVEE_LAT`)))) AS ARR1";
 	
@@ -170,9 +175,9 @@ if($_POST['ARRIVEE']!==''){
 }
 
 //recherche pour conducteur et/ou passager
-$type="";
-if((isset($_POST['TYPE']))&&($_POST['TYPE']!=='All')){
-	$type=" AND TYPE='".$_POST['TYPE']."'";
+$type = "";
+if (isset($_POST['TYPE']) && $_POST['TYPE'] !== 'All') {
+	$type = " AND TYPE='" . $_POST['TYPE'] . "'";
 }//fin de recherche pour conducteur et/ou passager
 
 //recherche par date de parcours (si renseigné)
@@ -182,10 +187,10 @@ if (isset($_POST['DATE_PARCOURS'])) {
   $colname_RStrajets3 = $_POST['DATE_PARCOURS'];
 }
 //préparation de la variable si recherche sur une date
-if($_POST['DATE_PARCOURS']!==''){
-	$date=explode('-',$_POST['DATE_PARCOURS']);
-	$colname_RStrajets3=$date[2].'-'.$date[1].'-'.$date[0];
-	$requete='AND DATE_PARCOURS= %s';
+if ($_POST['DATE_PARCOURS'] !== '') {
+	$date = explode('-', $_POST['DATE_PARCOURS']);
+	$colname_RStrajets3 = $date[2] . '-' . $date[1] . '-' . $date[0];
+	$requete = 'AND DATE_PARCOURS = %s';
 }
 //préparation de la variable si aucune recherche de date
 if ($_POST['DATE_PARCOURS']=='') {
@@ -256,8 +261,6 @@ for ($i = 0; $i <= $totalPages_rs; $i++) {
     $page_nav .= "<a class=\"pagenavnum" . $aclass . "\" href=\"" . $pagelink . "\" >" . $num . "</a>";
 }
 // /PAGINATION
-
-//echo $query_RSparcours;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/principal.dwt.php" codeOutsideHTMLIsLocked="false" -->

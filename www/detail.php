@@ -5,7 +5,8 @@ require_once("ScriptLibrary/form_functions.php");
 
 session_start();
 
-$myToken = getTokenM();
+$myToken	= getTokenM();
+$myToken2	= getTokenMRCF();
 
 // pour retourner sur la page de result
 if (isset($_SESSION['postdata']['srctoken']) and !empty($_SESSION['postdata']['srctoken'])) {
@@ -81,7 +82,13 @@ if($_GET['depart']=='eta2'){
 if($_GET['depart']=='eta3'){
 	$prix=$prix-$row_RStrajet['PRIX3'];
  }
+
+// captcha reconf
+$cryptinstall="crypt/cryptographp.fct.php";
+include("$cryptinstall");
+//
 ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/principal.dwt.php" codeOutsideHTMLIsLocked="false" -->
 <head>
@@ -162,6 +169,58 @@ $(document).ready(function(){
 			});		
 		
 	})
+	
+	$('#form2').submit(function(event) {
+		event.preventDefault();
+
+		var email	= $('#EMAIL_RECONF').val(),
+			c		= $('#c_reconf').val(),
+			code	= $('#CODE_RECONF').val(),
+			token	= $('#srctoken_reconf').val();
+		
+		if (email == '') {
+			alert('Veuillez préciser votre adresse e-mail s\'il vous plaît');
+			$('#EMAIL_RECONF').focus();
+			return false;
+		}
+		
+		var illegal = new RegExp("[\(\),;:!?<>\$àç&éùèâêî\*\^\'\"]+","g");
+		var legal = new RegExp("^\\w[\\w\-\_\.]*\\w@\\w[\\w\-\_\.]*\\w\\.\\w{2,4}$");
+		if ((illegal.test(email) == true) || (legal.test(email) != true)) {
+			alert("L'adresse e-mail qui a été saisie est incorrecte");
+			$('#EMAIL_RECONF').focus();
+			return false;
+		}
+		
+		var sendmail_div = $('#sendmailreconf_div');
+		$(this).hide();
+		sendmail_div.show();
+		
+		$.post(
+			"ajax/email_reconf.php",
+			{
+				email	: email,
+				c		: c,
+				code	: code,
+				token	: token
+			},
+			function(data) {
+				sendmail_div.hide();
+				$('#form2').show();
+				if (data != 1) {
+					$('#srctoken_reconf').val(data);
+					alert("Votre mail de confirmation a bien été envoyé.");
+				} else {
+					alert("Une erreur est survenue lors de l'envoi de votre mail de confirmation.\nMerci de vérifier votre email et/ou le code de sécurité.");
+				}
+			});		
+		
+	})
+	
+	$('#show_reconf').click(function(event){
+		event.preventDefault();
+		$('#form2').slideToggle('slow');
+	});
 });
 </script>
 <!-- InstanceEndEditable -->
@@ -236,10 +295,51 @@ $(document).ready(function(){
         <p>
           <?php } ?>
         </p>
+        
         <p>&nbsp;</p>
         <p><a href="#" id="abusif">Signaler une annonce incorrecte <em>(fonction &agrave; venir)</em></a></p>
         <p>&nbsp;</p>
         <p style="font-size:95%">C'est votre annonce et vous souhaitez la <span class="dispo2"><strong>modifier/supprimer</strong></span> ? Utilisez <u>les liens pr&eacute;vus</u> &agrave; ces effets dans l'email de confirmation que vous avez re&ccedil;u lors de la cr&eacute;ation de l'annonce.</p>
+        
+       
+         <p style="font-size:95%">C'est votre  annonce et vous avez perdu <span class="dispo2"><strong>le mail de confirmation</strong></span> ?<br />
+          <a href="#" id="show_reconf"> Cliquez ici pour le re&ccedil;evoir &agrave; nouveau.</a>
+         </p>
+        <form id="form2" action="/" style="font-size:95%; display:none;">
+          <table width="99%" border="0" cellspacing="0" cellpadding="5">
+            <tr>
+              <th width="200" align="left" valign="top" scope="row">Votre email :</th>
+              <td align="left" valign="top"><label for="EMAIL_RECONF"></label>
+                <input name="EMAIL_RECONF" type="text" id="EMAIL_RECONF" size="35" /></td>
+            </tr>
+            <tr>
+              <th align="left" valign="top" scope="row">Code de s&eacute;curit&eacute; :</th>
+              <td align="left" valign="top"><?php dsp_crypt(0,1); ?></td>
+            </tr>
+            <tr>
+              <th align="left" valign="top" scope="row">Merci de recopier le code<br />
+                affich&eacute; ci-dessus :</th>
+              <td align="left" valign="top">
+              <input name="CODE_RECONF" type="text" id="CODE_RECONF" size="10" />
+               <?php if ( isset($code_result_ok) and $code_result_ok === false ) : ?>
+            <a name="code_nok" id="code_nok"></a><em style="color:red;font-weight:bold;">code non reconnu</em>
+          <?php endif; ?>
+              </td>
+            </tr>
+            <tr>
+              <th align="left" scope="row">&nbsp;</th>
+              <td align="left">
+               <input name="c_reconf" type="hidden" id="c_reconf" value="<?php echo $row_RStrajet['CODE_CREATION']; ?>" />
+              <input id="srctoken_reconf" name="srctoken_reconf" type="hidden" value="<?php echo $myToken2; ?>" />
+              <input type="submit" name="submit" id="submit" value="Envoyer le mail de confirmation" /></td>
+            </tr>
+          </table>
+        </form>
+        <div id="sendmailreconf_div" style="display:none; height:90px; padding-top:95px; clear:both; text-align:center;">
+         <em> Envoi du mail de confirmation en cours &nbsp;</em><img src="images/ajax-loader.gif" alt="" width="43" height="11" />
+         </div>
+        <p>&nbsp;</p>
+        
         </td>
 	    <td><div id="depositaire"><h2>Informations sur le d&eacute;positaire de l'annonce</h2>
 	      <div class="picto" style="float:left;margin:0 15px 5px 0"><img src="images/<?php echo $row_RStrajet['TYPE']; ?>-<?php echo $row_RStrajet['CIVILITE']; ?>.jpg" alt="" width="60" height="60" /><span class="legende"><?php echo $row_RStrajet['TYPE']; ?></span></div>
