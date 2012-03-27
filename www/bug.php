@@ -34,7 +34,7 @@
 	    <td width="50%"><h2 class="dispo1">Un bug sur ce site ?</h2>
 	      <p>&nbsp;</p>
         <p>Malgr&eacute; mon soin apport&eacute; &agrave; offrir un site fiable, cela peut arriver. </p>
-        <p>Aidez-moi &agrave; am&eacute;liorer ce site en me faisant part des bugs/dysfonctionnements/fautes d'orthographes observ&eacute;s. Pour cela, &eacute;crivez-moi sur <a href="mailto:bug@covoiturage-libre.fr">bug@covoiturage-libre.fr</a></p>
+        <p>Aidez-moi &agrave; am&eacute;liorer ce site en me faisant part des bugs/dysfonctionnements/fautes d'orthographe observ&eacute;s. Pour cela, &eacute;crivez-moi sur <a href="mailto:bug@covoiturage-libre.fr">bug@covoiturage-libre.fr</a></p>
         <p>Je m'efforcerai  de les r&eacute;soudre dans les plus brefs d&eacute;lais.        </p>
         <p>&nbsp;</p>
         <p><strong>Nicolas RAYNAUD</strong><br />
@@ -42,7 +42,16 @@
 	    <td><h2 class="dispo1">Correction des bugs/am&eacute;liorations</h2>
 	      <p><strong>Chaque bug corrig&eacute; / am&eacute;lioration  est un pas de plus vers le site parfait !</strong></p>
 	      <p>&nbsp;</p>
-	      <h3>02/02/2012 - Mise &agrave; jour du site</h3>
+	      <h3>12/03/2012 - Bug Google Maps</h3>
+	      <p>&gt; Lors de la<strong> v&eacute;rification d'un parcours</strong>, &agrave; la cr&eacute;ation d'une annonce, certaines villes (comme Lyon) &eacute;taient mal localis&eacute;es. Mise en place d'une nouvelle m&eacute;thode de communication avec Google Maps API pour r&eacute;soudre ce probl&egrave;me.<br />
+	        <em>Merci &agrave; 
+	      Benoit G. de m'avoir signal&eacute; ce probl&egrave;me</em></p>
+<h3>&nbsp;</h3>
+	      <h3>28/02/2012 - Am&eacute;lioration lors de l'envoi de message</h3>
+          <p>&gt; Lors de l'envoi d'un message par le formulaire de contact pr&eacute;sent sur une annonce, <strong>la date du parcours</strong> est ajout&eacute;e dans le message exp&eacute;di&eacute;. Ainsi, le destinataire du message connait le trajet concern&eacute; (ville de d&eacute;part / ville d'arriv&eacute;e) et aussi la date du trajet (utile pour ceux qui publient des parcours identiques &agrave; des dates diff&eacute;rentes).<br />
+          <em>Merci &agrave; Serge L. pour son retour &agrave; ce sujet</em></p>
+          <p>&nbsp;</p>
+<h3>02/02/2012 - Mise &agrave; jour du site</h3>
 	      <p>&gt; <strong>Nouvelle version du site internet.</strong> Nouveau logo, ajout de la page &quot;faire un don&quot;, ajout des pays limitrophes &agrave; la France. Nouvelle home page.</p>
 	      <p>&nbsp;</p>
 	      <h3>31/01/2012 - Moteur de recherche</h3>

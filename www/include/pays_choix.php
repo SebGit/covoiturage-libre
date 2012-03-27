@@ -11,12 +11,20 @@
       <label for="PAYS_<?=strtoupper($pays_desc)?>_1"><img src="images/flags/flag-belgique.jpg" width="20" height="13" alt="Belgique" /></label>
       </td>
     <td align="center" valign="middle">
+    <input name="PAYS_<?=strtoupper($pays_desc)?>" type="radio" id="PAYS_<?=strtoupper($pays_desc)?>_2" value="ES" /><br />
+    <label for="PAYS_<?=strtoupper($pays_desc)?>_2"><img src="images/flags/flag-espagne.jpg" width="20" height="13" alt="Espagne" /></label>
+        </td>
+    <td align="center" valign="middle">
     <input name="PAYS_<?=strtoupper($pays_desc)?>" type="radio" id="PAYS_<?=strtoupper($pays_desc)?>_3" value="FR" checked /><br />
     <label for="PAYS_<?=strtoupper($pays_desc)?>_3"><img src="images/flags/flag-france.jpg" width="20" height="13" alt="France" /></label>
         </td>
     <td align="center" valign="middle">
     <input type="radio" name="PAYS_<?=strtoupper($pays_desc)?>" value="IT" id="PAYS_<?=strtoupper($pays_desc)?>_4" /><br />
     <label for="PAYS_<?=strtoupper($pays_desc)?>_4"><img src="images/flags/flag-italie.jpg" width="20" height="13" alt="Italie" /></label>
+    </td>
+    <td align="center" valign="middle">
+    <input type="radio" name="PAYS_<?=strtoupper($pays_desc)?>" value="LU" id="PAYS_<?=strtoupper($pays_desc)?>_5" /><br />
+    <label for="PAYS_<?=strtoupper($pays_desc)?>_5"><img src="images/flags/flag-luxembourg.jpg" width="20" height="13" alt="Luxembourg" /></label>
     </td>
     <td align="center" valign="middle">
     <input type="radio" name="PAYS_<?=strtoupper($pays_desc)?>" value="CH" id="PAYS_<?=strtoupper($pays_desc)?>_7" /><br />

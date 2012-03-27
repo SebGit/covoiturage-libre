@@ -8,7 +8,7 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 <div class="fb-like-box" data-href="http://www.facebook.com/pages/covoiturage-librefr/251274548255697" data-width="292" data-show-faces="false" data-stream="false" data-header="false"></div>
-<div class="actu">
+<div class="actu" style="display:none">
 <h2 id="actualite">Actualit&eacute;</h2>
 <p class="date">01/02/2012</p>
 <h3>Soir&eacute;e &quot;Happy Coding Hours&quot; &agrave; Paris, mercredi 15 f&eacute;vrier 2012</h3>
@@ -22,9 +22,10 @@
 </div>
 <div class="actu">
 <h2 id="technique">Am&eacute;liorations du site</h2>
-<p class="date">04/02/2012</p>
-<h3>Nouvelle version du site</h3>
-<p>Ajout de la rubrique &quot;Faire un don / association&quot;. Ajout des villes de pays europ&eacute;ens limitrophes de la France. Nouvelle home page.</p>
+<p class="date">12/03/2012</p>
+<h3>Bug Google Maps</h3>
+<p>&gt; Lors de la<strong> v&eacute;rification d'un parcours</strong>, &agrave; la cr&eacute;ation d'une annonce, certaines villes (comme Lyon) &eacute;taient mal localis&eacute;es. Mise en place d'une nouvelle m&eacute;thode de communication avec Google Maps API pour r&eacute;soudre ce probl&egrave;me. <em>Merci &agrave; 
+    Benoit G. de m'avoir signal&eacute; ce probl&egrave;me</em></p>
 <p><a href="bug.php">&gt; Historique des mises &agrave; jour techniques</a></p>
 </div>
 </div>

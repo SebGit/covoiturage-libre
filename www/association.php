@@ -48,10 +48,20 @@ border:1px solid #CCC;
 	<h1>L'association</h1>
     <div id="droite">
     <h2>Montant total</h2>
-    <p><strong>Total net des dons per&ccedil;us en 2012 :</strong> <strong><span class="dispo0">152,39 &euro;</span></strong></p>
+    <p><strong>Total net des dons per&ccedil;us en 2012 :</strong> <strong><span class="dispo0">275,52 &euro;</span></strong></p>
     <p>&nbsp;</p>
     <h2>Liste des donateurs    </h2>
     <ul>
+      <li>Rapha&euml;l (NC) - 1 &euro;</li>
+      <li>St&eacute;phane (NC) - 10 &euro;</li>
+      <li>Quentin (35) - 10 &euro;</li>
+      <li>Nicolas (NC) - 5 &euro;</li>
+      <li>Fabienne (35) - 10 &euro;</li>
+      <li>Simon (<em>NC</em>) - 50 &euro;</li>
+      <li>Lucas (35) - 5 &euro;</li>
+      <li>Patrick (<em>NC</em>) - 8 &euro;</li>
+      <li>Aymeric (<em>NC</em>) - 10 &euro;</li>
+      <li>Frederic (56) - 20 &euro;</li>
       <li>Benjamin (75) - 30 &euro;</li>
       <li>Daniel (56) - 20 &euro;</li>
       <li>Thomas (75) - 10 &euro;</li>
@@ -77,6 +87,23 @@ border:1px solid #CCC;
     <p class="dispo1"><strong>Budget total : 894,75 &euro; TTC</strong> </p>
     <p><strong>Nicolas RAYNAUD</strong><br />
     Pr&eacute;sident de l'association &quot;covoiturage-libre.fr&quot;</p>
+    <p>&nbsp;</p>
+    <h3>L'association covoiturage-libre.fr</h3>
+    <table width="600" border="0" cellpadding="3" cellspacing="0">
+      <tr>
+        <td><strong>Pr&eacute;sident et tr&eacute;sorier</strong></td>
+        <td>Nicolas RAYNAUD</td>
+        <td><strong>Conseils juridiques</strong></td>
+        <td>Virginie T.</td>
+      </tr>
+      <tr>
+        <td><strong>Secr&eacute;taire g&eacute;n&eacute;rale</strong></td>
+        <td>Elsa RIGAL</td>
+        <td><strong>Conseils comptables</strong></td>
+        <td>S&eacute;bastien C.</td>
+      </tr>
+    </table>
+    <p>&nbsp;</p>
     <p>&nbsp;</p>
     <div class="encart">
 	<h3>Faire un don en ligne <br />

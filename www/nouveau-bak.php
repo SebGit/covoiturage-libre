@@ -163,124 +163,6 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   }
   header(sprintf("Location: %s", $insertGoTo));
 }
-
-
-// DUPLIQUER / RETOURNER TRAJET
-
-$Heure = array('12', '00');
-$pays_js = '';
-function checkVal($name, $val = NULL, $type = NULL) {
-	global $TrajR;
-	$return = '';
-	if ($type == 'option') {
-		if ($TrajR[$name] == $val) {
-			$return = ' selected="selected" ';
-		}
-	} elseif (!$val) {
-		$return = ' value="' . $TrajR[$name] . '" ';
-	} elseif ($TrajR[$name] == $val) {
-		$return = ' checked="checked" ';
-	}
-	
-	return $return;
-}
-
-if (isset($_GET['c']) && !empty($_GET['c']) && isset($_GET['c2']) && !empty($_GET['c2']) && isset($_GET['a']) && !empty($_GET['a'])) {
-	
-	if (strlen($_GET['c']) !== 25 || !ctype_alnum($_GET['c'])) {
-		header("Location: interdit.php");
-		die();
-	}
-	$Actions = array('r', 'd');
-	if (!in_array($_GET['a'], $Actions)) {
-		header("Location: interdit.php");
-		die();
-	}
-	
-	// get trajet infos
-	 mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
-	$query_RStrajet = sprintf("SELECT * FROM trajets WHERE 1 AND CODE_CREATION = %s LIMIT 1", GetSQLValueString($_GET['c'], "text"));
-	
-	$RStrajet = mysql_query($query_RStrajet, $bddcovoiturette) or die(mysql_error());
-	$Traj = mysql_fetch_assoc($RStrajet);
-	mysql_free_result($RStrajet);
-	
-	// check email code
-	if (strcmp(sha1($Traj['EMAIL'] . "_covoiturette2353"), $_GET['c2']) !== 0) {
-		header("Location: interdit.php");
-		die();
-	}
-	
-	$Heure = explode(':', $Traj['HEURE']);
-	
-	$TrajR = $Traj;
-	
-	!empty($TrajR['ETAPE1']) ? $etape1 = true :  $etape1 = false;
-	!empty($TrajR['ETAPE2']) ? $etape2 = true :  $etape2 = false;
-	!empty($TrajR['ETAPE3']) ? $etape3 = true :  $etape3 = false;
-	
-	$TrajR['DATE_PARCOURS'] = '';
-	
-	if ($_GET['a'] == 'r') {
-		$TrajR['DEPART']		= $Traj['ARRIVEE'];
-		$TrajR['ARRIVEE']		= $Traj['DEPART'];
-		$TrajR['DEPART_LAT']	= $Traj['ARRIVEE_LAT'];
-		$TrajR['DEPART_LON']	= $Traj['ARRIVEE_LON'];
-		$TrajR['ARRIVEE_LON']	= $Traj['DEPART_LON'];
-		$TrajR['ARRIVEE_LAT']	= $Traj['DEPART_LAT'];
-		
-		if ($etape1 && $etape2 && $etape3) {
-			$TrajR['ETAPE1']		= $Traj['ETAPE3'];
-			$TrajR['ETAPE3']		= $Traj['ETAPE1'];
-			$TrajR['ETAPE1_LAT']	= $Traj['ETAPE3_LAT'];
-			$TrajR['ETAPE3_LAT']	= $Traj['ETAPE1_LAT'];
-			$TrajR['ETAPE1_LON']	= $Traj['ETAPE3_LON'];
-			$TrajR['ETAPE3_LON']	= $Traj['ETAPE1_LON'];
-			$TrajR['PRIX1'] = $Traj['PRIX'] - $Traj['PRIX3'];
-			$TrajR['PRIX2'] = $TrajR['PRIX1'] + $Traj['PRIX3'] - $Traj['PRIX2'];
-			$TrajR['PRIX3'] = $TrajR['PRIX2'] + $Traj['PRIX2'] - $Traj['PRIX1'];
-		} elseif ($etape1 && $etape2) {
-			$TrajR['ETAPE1']		= $Traj['ETAPE2'];
-			$TrajR['ETAPE2']		= $Traj['ETAPE1'];
-			$TrajR['ETAPE1_LAT']	= $Traj['ETAPE2_LAT'];
-			$TrajR['ETAPE2_LAT']	= $Traj['ETAPE1_LAT'];
-			$TrajR['ETAPE1_LON']	= $Traj['ETAPE2_LON'];
-			$TrajR['ETAPE2_LON']	= $Traj['ETAPE1_LON'];
-			$TrajR['PRIX1'] = $Traj['PRIX'] - $Traj['PRIX2'];
-			$TrajR['PRIX2'] = $Traj['PRIX'] - $Traj['PRIX1'];
-		}
-	}
-	
-	$PaysNum = array('BE'=>0, 'DE'=>1, 'ES'=>2, 'FR'=>3, 'IT'=>4, 'LU'=>5, 'CH'=>7);
-	
-	$Pays = explode(" (", $TrajR['DEPART']);
-	$TrajR['DEPART_PAYS'] = substr($Pays[1], 0 ,2);
-	$pays_js .= "$('#PAYS_DEPART_" . $PaysNum[$TrajR['DEPART_PAYS']] . "').trigger('click')" . PHP_EOL;
-	
-	$Pays = explode(" (", $TrajR['ARRIVEE']);
-	$TrajR['ARRIVEE_PAYS'] = substr($Pays[1], 0 ,2);
-	$pays_js .= "$('#PAYS_ARRIVEE_" . $PaysNum[$TrajR['ARRIVEE_PAYS']] . "').trigger('click')" . PHP_EOL;
-	
-	if ($etape1) {
-		$Pays = explode(" (", $TrajR['ETAPE1']);
-		$TrajR['ETAPE1_PAYS'] = substr($Pays[1], 0 ,2);
-		$pays_js .= "$('#PAYS_ETAPE1_" . $PaysNum[$TrajR['ETAPE1_PAYS']] . "').trigger('click')" . PHP_EOL;
-	}
-	
-	if ($etape2) {
-		$Pays = explode(" (", $TrajR['ETAPE2']);
-		$TrajR['ETAPE2_PAYS'] = substr($Pays[1], 0 ,2);
-		$pays_js .= "$('#PAYS_ETAPE2_" . $PaysNum[$TrajR['ETAPE2_PAYS']] . "').trigger('click')" . PHP_EOL;	
-	}
-	
-	if ($etape3) {
-		$Pays = explode(" (", $TrajR['ETAPE3']);
-		$TrajR['ETAPE3_PAYS'] = substr($Pays[1], 0 ,2);
-		$pays_js .= "$('#PAYS_ETAPE3_" . $PaysNum[$TrajR['ETAPE3_PAYS']] . "').trigger('click')" . PHP_EOL;
-	}
-
-}
-//
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/principal.dwt.php" codeOutsideHTMLIsLocked="false" -->
@@ -298,57 +180,56 @@ if (isset($_GET['c']) && !empty($_GET['c']) && isset($_GET['c2']) && !empty($_GE
 <!-- InstanceBeginEditable name="head" -->
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript">
-var map,
-	directionsDisplay,
-	directionsService = new google.maps.DirectionsService();
+ var map;
+ var directionsDisplay;
+ var directionsService = new google.maps.DirectionsService();
 
-function initialize() {
-	var latlng = new google.maps.LatLng(46.7, 2.5);
-	var myOptions = {
-		zoom: 6,
-		center: latlng,
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	};
-	
-	map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
-	directionsDisplay = new google.maps.DirectionsRenderer();
-	directionsDisplay.setMap(map);
-	directionsDisplay.setPanel(document.getElementById('map_infos'));
-}
+ function initialize() {
+  var latlng = new google.maps.LatLng(46.7, 2.5);
+  var myOptions = {
+   zoom: 6,
+   center: latlng,
+   mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+
+  map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+  directionsDisplay = new google.maps.DirectionsRenderer();
+  directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById('map_infos'));
+
+ }
 
 function showItineraire() {
-	waypts = new Array();
-	
-	var etape1	= $('#ETAPE1').val();
-	var etape1p	= etape1 + ', ' + $('input[name=PAYS_ETAPE1]:checked').val()
-	var etape2	= $('#ETAPE2').val();
-	var etape2p	= etape2 + ', ' + $('input[name=PAYS_ETAPE2]:checked').val()
-	var etape3	= $('#ETAPE3').val();
-	var etape3p	= etape3 + ', ' + $('input[name=PAYS_ETAPE3]:checked').val()
-	
-	if(etape1!==''){waypts.push({location:etape1p,stopover:true})};
-	if(etape2!==''){waypts.push({location:etape2p,stopover:true})};
-	if(etape3!==''){waypts.push({location:etape3p,stopover:true})};
-	
-	var myorigin_lat	= $('#DEPART_LAT').val();
-	var myorigin_lon	= $('#DEPART_LON').val();
-	var mydest_lat		= $('#ARRIVEE_LAT').val();
-	var mydest_lon		= $('#ARRIVEE_LON').val();
-	
+   waypts = new Array();
+   
+   var etape1	= $('#ETAPE1').val();
+   var etape1p	= etape1 + ', ' + $('input[name=PAYS_ETAPE1]:checked').val()
+   var etape2	= $('#ETAPE2').val();
+   var etape2p	= etape2 + ', ' + $('input[name=PAYS_ETAPE2]:checked').val()
+   var etape3	= $('#ETAPE3').val();
+   var etape3p	= etape3 + ', ' + $('input[name=PAYS_ETAPE3]:checked').val()
+   
+   if(etape1!==''){waypts.push({location:etape1p,stopover:true})};
+   if(etape2!==''){waypts.push({location:etape2p,stopover:true})};
+   if(etape3!==''){waypts.push({location:etape3p,stopover:true})};
+   
+	var myorigin	= $('#DEPART').val();
+	var mydest		= $('#ARRIVEE').val();
+
 	directionsService.route({
-		origin:	new google.maps.LatLng(myorigin_lat, myorigin_lon),
-		destination: new google.maps.LatLng(mydest_lat, mydest_lon),
-		waypoints: waypts,
-		unitSystem: google.maps.DirectionsUnitSystem.METRIC,
-		travelMode: google.maps.DirectionsTravelMode.DRIVING
-	}, function(result, status){
-		if (status == google.maps.DirectionsStatus.OK){
-			directionsDisplay.setDirections(result);
-		} else {
-			alert('Le calcul d\'itinéraire a échoué.');
-		}
-	});
-}
+		origin:		myorigin,
+		destination:	mydest,
+   waypoints: waypts,
+   unitSystem: google.maps.DirectionsUnitSystem.METRIC,
+   travelMode: google.maps.DirectionsTravelMode.DRIVING
+  }, function(result, status){
+   if (status == google.maps.DirectionsStatus.OK){
+    directionsDisplay.setDirections(result);
+   } else {
+    alert('Le calcul d\'itinéraire a échoué.');
+   }
+  });
+ }
  
 function init() {
 	key_count_global = 0;
@@ -370,14 +251,12 @@ function init5() {
 	key_count_global = 0;
 	document.getElementById("ETAPE3").onkeyup = function() {key_count_global++;setTimeout("etape3("+key_count_global+")", 600);}
 }
+$(document).ready(init);
+$(document).ready(init2);
+$(document).ready(init3);
+$(document).ready(init4);
+$(document).ready(init5);
 
-$(document).ready(function(){
-	init();
-	init2();
-	init3();
-	init4();
-	init5();
-});
 
 function depart(key_count) {
 	if (key_count == key_count_global) {
@@ -396,21 +275,22 @@ function depart(key_count) {
 	}
 }
 
-function arrivee(key_count){
-	if (key_count == key_count_global) {
-		var ville	= $('#ARRIVEE').val();
-		var ville2	= encodeURI(ville);
-		var chiffre	= $('#ARRIVEE').val().length;
-		var pays	= encodeURI($('input[name=PAYS_ARRIVEE]:checked').val());
-		if (chiffre>=3) {
-			$('#ARRIVEE').addClass('wait');
-			$('#liste_arrivee').load('ajax/arrivee_flag.php?COMMUNE='+ville2+ '&PAYS=' + pays);
-			$('#liste_arrivee').show();
-		} else {
-			$('#liste_arrivee').hide();
-		}
+ function arrivee(key_count){
+	 if(key_count == key_count_global) {
+	var ville=$('#ARRIVEE').val();
+	var ville2=encodeURI(ville);
+	var chiffre=$('#ARRIVEE').val().length;
+	var pays	= encodeURI($('input[name=PAYS_ARRIVEE]:checked').val());
+	if(chiffre>=3){
+		$('#ARRIVEE').addClass('wait');
+		$('#liste_arrivee').load('ajax/arrivee_flag.php?COMMUNE='+ville2+ '&PAYS=' + pays);
+		$('#liste_arrivee').show();
 	}
-}
+	else {
+		$('#liste_arrivee').hide();
+	}
+	}
+ }
  
  function etape1(key_count){
 	 if(key_count == key_count_global) {
@@ -461,28 +341,29 @@ function arrivee(key_count){
 	}}
  }
  
-function blank(){$('#DEPART').val('');$('#DEPART_LAT').val('');$('#DEPART_LON').val('');$('#DEPART').removeClass('check');}
-function blank2(){$('#ARRIVEE').val('');$('#ARRIVEE_LAT').val('');$('#ARRIVEE_LON').val('');$('#ARRIVEE').removeClass('check');}
-function blank3(){$('#ETAPE1').val('');$('#ETAPE1_LAT').val('');$('#ETAPE1_LON').val('');$('#ETAPE1').removeClass('check');}
-function blank4(){$('#ETAPE2').val('');$('#ETAPE2_LAT').val('');$('#ETAPE2_LON').val('');$('#ETAPE2').removeClass('check');}
-function blank5(){$('#ETAPE3').val('');$('#ETAPE3_LAT').val('');$('#ETAPE3_LON').val('');$('#ETAPE3').removeClass('check');}
-function conducteur(){
-	if(document.form1.TYPE[0].checked==true){
-		$('.conducteur').show();
-	} else {
-		$('.conducteur').hide();
-	}
-}
+ function blank(){$('#DEPART').val('');$('#DEPART_LAT').val('');$('#DEPART_LON').val('');$('#DEPART').removeClass('check');}
+ function blank2(){$('#ARRIVEE').val('');$('#ARRIVEE_LAT').val('');$('#ARRIVEE_LON').val('');$('#ARRIVEE').removeClass('check');}
+ function blank3(){$('#ETAPE1').val('');$('#ETAPE1_LAT').val('');$('#ETAPE1_LON').val('');$('#ETAPE1').removeClass('check');}
+ function blank4(){$('#ETAPE2').val('');$('#ETAPE2_LAT').val('');$('#ETAPE2_LON').val('');$('#ETAPE2').removeClass('check');}
+ function blank5(){$('#ETAPE3').val('');$('#ETAPE3_LAT').val('');$('#ETAPE3_LON').val('');$('#ETAPE3').removeClass('check');}
+ function conducteur(){
+	 if(document.form1.TYPE[0].checked==true){
+		 $('.conducteur').show();
+	 }
+	 else {
+		 $('.conducteur').hide();
+	 }
+ }
  
 $(document).ready(function(){
 	initialize();
 	disableAutocomplete('DEPART');
-	disableAutocomplete('ARRIVEE');
-	disableAutocomplete('DATE_PARCOURS');
-	disableAutocomplete('ETAPE1');
-	disableAutocomplete('ETAPE2');
-	disableAutocomplete('ETAPE3');
-	conducteur();
+	 disableAutocomplete('ARRIVEE');
+	 disableAutocomplete('DATE_PARCOURS');
+	 disableAutocomplete('ETAPE1');
+	 disableAutocomplete('ETAPE2');
+	 disableAutocomplete('ETAPE3');
+	 conducteur();
 });
 
 
@@ -570,6 +451,7 @@ return true
 <script type="text/javascript" src="js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	
 	$("a.iframe").fancybox({
 		'transitionIn'	:	'elastic',
 		'transitionOut'	:	'elastic',
@@ -577,6 +459,7 @@ $(document).ready(function() {
 		'speedOut'		:	200, 
 		'overlayShow'	:	true
 	});
+	
 });
 </script>
 <!-- InstanceEndEditable -->
@@ -607,9 +490,9 @@ $(document).ready(function() {
         </tr>
         <tr>
           <td style="width:190px;">Je suis <span class="dispo1">*</span></td>
-          <td><input type="radio" name="TYPE" value="Conducteur" id="TYPE_0" onclick="conducteur()" <?=checkVal('TYPE', 'Conducteur')?> />
+          <td><input type="radio" name="TYPE" value="Conducteur" id="TYPE_0" onclick="conducteur()" />
             <label for="TYPE_0">Conducteur</label>
-            <input type="radio" name="TYPE" value="Passager" id="TYPE_1" onclick="conducteur()"  <?=checkVal('TYPE', 'Passager')?> />
+            <input type="radio" name="TYPE" value="Passager" id="TYPE_1" onclick="conducteur()" />
             <label for="TYPE_1">Passager</label></td>
         </tr>
         <tr>
@@ -617,9 +500,9 @@ $(document).ready(function() {
           <?php $pays_desc = 'depart'; require("include/pays_choix.php"); ?>
           </td>
           <td id="focusdepart">
-          <input name="DEPART" type="text" id="DEPART" size="25" onkeyup="depart()" onfocus="blank()" <?=checkVal('DEPART')?> /><div id="liste_depart"></div>
-          <input type="hidden" name="DEPART_LAT" id="DEPART_LAT" <?=checkVal('DEPART_LAT')?> />
-          <input type="hidden" name="DEPART_LON" id="DEPART_LON" <?=checkVal('DEPART_LON')?> />
+          <input name="DEPART" type="text" id="DEPART" size="25" onkeyup="depart()" onfocus="blank()" /><div id="liste_depart"></div>
+          <input type="hidden" name="DEPART_LAT" id="DEPART_LAT" value="" />
+          <input type="hidden" name="DEPART_LON" id="DEPART_LON" value="" />
           <input type="hidden" name="GERARD" id="GERARD" /> <a href="manque-une-ville.html" class="iframe">&gt; il manque une ville ?</a></td>
         </tr>
         <tr>
@@ -627,9 +510,9 @@ $(document).ready(function() {
           	<?php $pays_desc = 'arrivee'; require("include/pays_choix.php"); ?>
           </td>
           <td>
-          <input name="ARRIVEE" type="text" id="ARRIVEE" size="25" onkeyup="arrivee()" onfocus="blank2()" <?=checkVal('ARRIVEE')?> /><div id="liste_arrivee"></div>
-          <input type="hidden" name="ARRIVEE_LAT" id="ARRIVEE_LAT" <?=checkVal('ARRIVEE_LAT')?> />
-          <input type="hidden" name="ARRIVEE_LON" id="ARRIVEE_LON" <?=checkVal('ARRIVEE_LON')?> />
+          <input name="ARRIVEE" type="text" id="ARRIVEE" size="25" onkeyup="arrivee()" onfocus="blank2()" /><div id="liste_arrivee"></div>
+          <input type="hidden" name="ARRIVEE_LAT" id="ARRIVEE_LAT" value="" />
+          <input type="hidden" name="ARRIVEE_LON" id="ARRIVEE_LON" value="" />
           <input type="hidden" name="HARRY" id="HARRY" /></td>
         </tr>
         <tr>
@@ -643,58 +526,80 @@ $(document).ready(function() {
         </tr>
         <tr>
           <td>Heure de d&eacute;part <span class="dispo1">*</span></td>
-          <td>
-			<select name="HEURE_H" id="HEURE_H">
- 			<?php
-			for ($i=0; $i<24; $i++) {
-				if ($i<10) $i = '0'.$i;
-				$sel = '';
-				if ($i == $Heure[0]) $sel = 'selected="selected"';
-				echo '<option value="'.$i.'" '.$sel.'>'.$i.'</option>' . PHP_EOL;
-			}
-			?>
+          <td><label for="HEURE"></label>
+            <label for="HEURE_H"></label>
+            <select name="HEURE_H" id="HEURE_H">
+              <option value="00">00</option>
+              <option value="01">01</option>
+              <option value="02">02</option>
+              <option value="03">03</option>
+              <option value="04">04</option>
+              <option value="05">05</option>
+              <option value="06">06</option>
+              <option value="07">07</option>
+              <option value="08">08</option>
+              <option value="09">09</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12" selected="selected">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
           </select>
-            h 
+            hh 
+            <label for="HEURE_M"></label>
             <select name="HEURE_M" id="HEURE_M">
-             <?php
-			for ($i=0; $i<60; $i=$i+5) {
-				if ($i<10) $i = '0'.$i;
-				$sel = '';
-				if ($i == $Heure[1]) $sel = 'selected="selected"';
-				echo '<option value="'.$i.'" '.$sel.'>'.$i.'</option>' . PHP_EOL;
-			}
-			?>
+              <option value="00">00</option>
+              <option value="05">05</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="25">25</option>
+              <option value="30">30</option>
+              <option value="35">35</option>
+              <option value="40">40</option>
+              <option value="45">45</option>
+              <option value="50">50</option>
+              <option value="55">55</option>
             </select> 
             minutes</td>
         </tr>
         <tr class="conducteur">
           <td>Nombre de place(s) <br />
           disponible(s) <span class="dispo1">*</span></td>
-          <td>
-          	<select name="PLACES" id="PLACES">
-	            <option value=""></option>
-            <?php for ($i=1; $i<5; $i++) : ?>
-				<option value="<?=$i?>" <?=checkVal('PLACES', $i, 'option')?>><?=$i?></option>
-			<?php endfor; ?>
-			</select>
-		</td>
+          <td><label for="PLACES"></label>
+            <select name="PLACES" id="PLACES">
+            <option value=""></option>
+			  <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+</select></td>
         </tr>
         <tr class="conducteur">
           <td>Confort du v&eacute;hicule <span class="dispo1">*</span></td>
-          <td><input type="radio" name="CONFORT" value="Basique" id="CONFORT_0" <?=checkVal('CONFORT', 'Basique')?> />
-            Basique
-            <input type="radio" name="CONFORT" value="Normal" id="CONFORT_1"<?=checkVal('CONFORT', 'Normal')?> />
-            Normal
-            <input type="radio" name="CONFORT" value="Confortable" id="CONFORT_2" <?=checkVal('CONFORT', 'Confortable')?>/>
-            Confortable
-            <input type="radio" name="CONFORT" value="Luxe" id="CONFORT_3" <?=checkVal('CONFORT', 'Luxe')?>/>
-            Luxe</td>
+          <td><input type="radio" name="CONFORT" value="Basique" id="CONFORT_0" />
+Basique
+<input type="radio" name="CONFORT" value="Normal" id="CONFORT_1" />
+Normal
+<input type="radio" name="CONFORT" value="Confortable" id="CONFORT_2" />
+Confortable
+<input type="radio" name="CONFORT" value="Luxe" id="CONFORT_3" />
+Luxe</td>
         </tr>
         <tr class="conducteur">
           <td>Prix par personne <span class="dispo1">*</span></td>
           <td>
             
-            <input name="PRIX" type="text" id="PRIX" size="3" maxlength="3" <?=checkVal('PRIX')?> />
+            <input name="PRIX" type="text" id="PRIX" size="3" maxlength="3" />
 &euro; <a href="infos-assurance.html" class="iframe" style="margin-left:40px;">&gt; ne cherchez pas &agrave; faire de b&eacute;n&eacute;fices</a></td>
         </tr>
          <tr class="conducteur">
@@ -718,10 +623,10 @@ $(document).ready(function() {
               	 <?php $pays_desc = 'etape1'; require("include/pays_choix.php"); ?>
               </td>
               <td>
-                <input name="ETAPE1" type="text" id="ETAPE1" size="25" onkeyup="etape1()" onfocus="blank3()"  <?=checkVal('ETAPE1')?> /><div id="liste_etape1"></div>
-                <input type="hidden" name="ETAPE1_LAT" id="ETAPE1_LAT" <?=checkVal('ETAPE1_LAT')?> />
-                <input type="hidden" name="ETAPE1_LON" id="ETAPE1_LON" <?=checkVal('ETAPE1_LON')?> /></td>
-              <td align="center"><input name="PRIX1" type="text" id="PRIX1" size="3" maxlength="3"  <?=checkVal('PRIX1')?> /> 
+                <input name="ETAPE1" type="text" id="ETAPE1" size="25" onkeyup="etape1()" onfocus="blank3()" /><div id="liste_etape1"></div>
+                <input type="hidden" name="ETAPE1_LAT" id="ETAPE1_LAT" value="" />
+                <input type="hidden" name="ETAPE1_LON" id="ETAPE1_LON" value="" /></td>
+              <td align="center"><input name="PRIX1" type="text" id="PRIX1" size="3" maxlength="3" value="" /> 
                 &euro;</td>
             </tr>
             <tr>
@@ -729,11 +634,10 @@ $(document).ready(function() {
               	 <?php $pays_desc = 'etape2'; require("include/pays_choix.php"); ?>
               </td>
               <td>
-                <input name="ETAPE2" type="text" id="ETAPE2" size="25" onkeyup="etape2()" onfocus="blank4()" <?=checkVal('ETAPE2')?> /><div id="liste_etape2"></div>
-                <input type="hidden" name="ETAPE2_LAT" id="ETAPE2_LAT" <?=checkVal('ETAPE2_LAT')?> />
-                <input type="hidden" name="ETAPE2_LON" id="ETAPE2_LON" <?=checkVal('ETAPE2_LON')?> />
+                <input name="ETAPE2" type="text" id="ETAPE2" size="25" onkeyup="etape2()" onfocus="blank4()" /><div id="liste_etape2"></div><input type="hidden" name="ETAPE2_LAT" id="ETAPE2_LAT" value="" />
+                <input type="hidden" name="ETAPE2_LON" id="ETAPE2_LON" value="" />
               </td>
-              <td align="center"><input name="PRIX2" type="text" id="PRIX2" size="3" maxlength="3"  <?=checkVal('PRIX2')?>/> 
+              <td align="center"><input name="PRIX2" type="text" id="PRIX2" size="3" maxlength="3" value="" /> 
                 &euro;</td>
             </tr>
             <tr>
@@ -741,11 +645,10 @@ $(document).ready(function() {
               	 <?php $pays_desc = 'etape3'; require("include/pays_choix.php"); ?>
               </td>
               <td>
-                <input name="ETAPE3" type="text" id="ETAPE3" size="25" onkeyup="etape3()" onfocus="blank5()" <?=checkVal('ETAPE3')?> /><div id="liste_etape3"></div>
-                <input type="hidden" name="ETAPE3_LAT" id="ETAPE3_LAT" <?=checkVal('ETAPE3_LAT')?> />
-                <input type="hidden" name="ETAPE3_LON" id="ETAPE3_LON" <?=checkVal('ETAPE3_LON')?> />
+                <input name="ETAPE3" type="text" id="ETAPE3" size="25" onkeyup="etape3()" onfocus="blank5()" /><div id="liste_etape3"></div><input type="hidden" name="ETAPE3_LAT" id="ETAPE3_LAT" value="" />
+                <input type="hidden" name="ETAPE3_LON" id="ETAPE3_LON" value="" />
                 </td>
-              <td align="center"><input name="PRIX3" type="text" id="PRIX3" size="3" maxlength="3" <?=checkVal('PRIX3')?>/> 
+              <td align="center"><input name="PRIX3" type="text" id="PRIX3" size="3" maxlength="3" value="" /> 
                 &euro;</td>
             </tr>
           </table></td>
@@ -771,26 +674,26 @@ $(document).ready(function() {
         </tr>
         <tr>
           <td>Vous &ecirc;tes <span class="dispo1">*</span></td>
-          <td><input type="radio" name="CIVILITE" value="homme" id="CIVILITE_0" <?=checkVal('CIVILITE' , 'homme')?> />
-                un homme
-                  <input type="radio" name="CIVILITE" value="femme" id="CIVILITE_1" <?=checkVal('CIVILITE', 'femme')?> />
-                une femme</td>
+          <td><input type="radio" name="CIVILITE" value="homme" id="CIVILITE_0" />
+un homme
+  <input type="radio" name="CIVILITE" value="femme" id="CIVILITE_1" />
+une femme</td>
         </tr>
         <tr>
           <td>Votre nom/pseudo<span class="dispo1">*</span></td>
           <td><label for="NOM"></label>
-          <input type="text" name="NOM" id="NOM"  <?=checkVal('NOM')?>/></td>
+          <input type="text" name="NOM" id="NOM" /></td>
         </tr>
         <tr>
           <td>Votre &acirc;ge <em>(facultatif)</em></td>
           <td><label for="AGE"></label>
-          <input name="AGE" type="text" id="AGE" size="3" maxlength="3" <?=checkVal('AGE')?> /> 
+          <input name="AGE" type="text" id="AGE" size="3" maxlength="3" /> 
           ans</td>
         </tr>
         <tr>
           <td>Votre t&eacute;l&eacute;phone portable</td>
           <td><label for="TELEPHONE"></label>
-          <input type="text" name="TELEPHONE" id="TELEPHONE"  <?=checkVal('TELEPHONE')?>/></td>
+          <input type="text" name="TELEPHONE" id="TELEPHONE" /></td>
         </tr>
         <tr>
           <td>&nbsp;</td>
@@ -799,7 +702,7 @@ $(document).ready(function() {
         <tr>
           <td>Votre email <span class="dispo1">*</span></td>
           <td><label for="EMAIL"></label>
-          <input type="text" name="EMAIL" id="EMAIL" <?=checkVal('EMAIL')?>  /></td>
+          <input type="text" name="EMAIL" id="EMAIL" /></td>
         </tr>
         <tr>
           <td>&nbsp;</td>
@@ -826,13 +729,4 @@ $(document).ready(function() {
 
 </div>
 </body>
-<!-- InstanceEnd -->
-<script type="text/javascript">
-/* <![CDATA[ */
-$(document).ready(function(){
-	 <?=$pays_js?>
-	 $('.flags_table').hide();
-});
-/* ]]> */
-</script> 
-</html>
+<!-- InstanceEnd --></html>

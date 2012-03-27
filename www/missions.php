@@ -51,9 +51,9 @@
 	  <li><strong><s>Allemagne</s></strong><s> - 13000 communes environ</s> <span class="dispo2"><strong>liste fournie par Ben L. et valid&eacute;e</strong></span></li>
 	  <li><strong><s>Suisse</s></strong><s> - 2600 communes environ</s> <strong class="dispo2">liste fournie par Pierre PLR. et valid&eacute;e</strong></li>
 	  <li><strong><s>Italie</s></strong><s> - 8000 communes environ liste</s> <strong class="dispo2">fournie par Thibaud M. / Gatien C. et valid&eacute;e</strong></li>
+	  <li><strong><s>Luxembourg</s></strong><s> - 110 communes environ</s> <strong class="dispo2">fournie par Pierre PLR, affin&eacute;e par Nicolas R. et valid&eacute;e</strong></li>
+      <li><strong><s>Espagne</s></strong><s> - 8100 communes environ</s><strong class="dispo2"> fournie par Thibaud M., corrig&eacute;e et valid&eacute;e</strong></li>
 	  <li><strong>Pays</strong> <strong>Bas</strong> - 430 communes environ<strong class="dispo1"> fournie par Pierre PLR et en cours de v&eacute;rification</strong></li>
-	  <li><strong>Luxembourg</strong> - 110 communes environ <strong class="dispo1">fournie par Pierre PLR et en cours de v&eacute;rification</strong></li>
-	  <li><strong>Espagne</strong> - 8100 communes environ<strong class="dispo1"> fournie par Thibaud M. et en cours de v&eacute;rification</strong></li>
 	</ul>
 	<p>Chaque liste doit &ecirc;tre fournie au format excel (ou open office, ou encore csv), et doit contenir obligatoirement les colonnes suivantes (&quot;COMMUNE&quot;, &quot;CODE POSTAL&quot;, &quot;LATITUDE&quot;, &quot;LONGITUDE&quot;). A noter que les latitudes et longitudes doivent &ecirc;tre renseign&eacute;es au format d&eacute;cimal. Ci-dessous un exemple :</p>
 	<table width="50%" border="0" cellpadding="3" cellspacing="0" style="border:1px solid #666">

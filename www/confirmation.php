@@ -51,6 +51,11 @@ $datefr .= " ".date("d",mktime(0, 0, 0, $regs[2], $regs[3], $regs[1]));
 $datefr .= " ".$mois[date("n",mktime(0, 0, 0, $regs[2], $regs[3], $regs[1]))];
 $datefr .= " ".date("Y",mktime(0, 0, 0, $regs[2], $regs[3], $regs[1])); 
 
+//
+$email_code = sha1($row_RSannonce['EMAIL'] . "_covoiturette2353");
+$lien_ret = "nouveau.php?c=" . $row_RSannonce['CODE_CREATION'] . "&a=r&c2=" . $email_code;
+$lien_dup = "nouveau.php?c=" . $row_RSannonce['CODE_CREATION'] . "&a=d&c2=" . $email_code;
+//
 $to = $row_RSannonce['EMAIL'];
 $from = "no-reply@covoiturage-libre.fr";
 $from_name = "Covoiturage Libre";
@@ -73,9 +78,18 @@ $message = '
     <p>Pour <strong>modifier votre annonce</strong> (modifier le nombre de places disponibles, ajouter un compl&eacute;ment d\'information, modifier un prix, etc...), utilisez le lien ci-dessous.<br />
       <a href="http://www.covoiturage-libre.fr/modification.php?m='.$row_RSannonce['CODE_MODIFICATION'].'"><font color="#3c609e">http://www.covoiturage-libre.fr/modification.php?m='.$row_RSannonce['CODE_MODIFICATION'].'</font></a></p>
     <p>&nbsp;</p>
-<p>Si vous souhaitez <strong>supprimer</strong> d&eacute;finitivement votre annonce de notre site, cliquez sur le lien ci-dessous.<br />
-  <a href="http://www.covoiturage-libre.fr/suppression.php?supp='.$row_RSannonce['CODE_SUPPRESSION'].'"><font color="#be3434">http://www.covoiturage-libre.fr/suppression.php?supp='.$row_RSannonce['CODE_SUPPRESSION'].'</font></a></p>
-<p>&nbsp;</p>
+	<p>Si vous souhaitez <strong>supprimer</strong> d&eacute;finitivement votre annonce de notre site, cliquez sur le lien ci-dessous.<br />
+	  <a href="http://www.covoiturage-libre.fr/suppression.php?supp='.$row_RSannonce['CODE_SUPPRESSION'].'"><font color="#be3434">http://www.covoiturage-libre.fr/suppression.php?supp='.$row_RSannonce['CODE_SUPPRESSION'].'</font></a></p>
+	<p>&nbsp;</p>
+
+	<p>Si vous souhaitez créer l\'annonce du trajet retour, cliquez sur le lien ci-dessous.<br />
+	  <a href="http://www.covoiturage-libre.fr/'.$lien_ret.'"><font color="#83BE54">http://www.covoiturage-libre.fr/'.$lien_ret.'</font></a></p>
+	<p>&nbsp;</p>
+	<p>Si vous souhaitez dupliquer cette annonce, cliquez sur le lien ci-dessous.<br />
+	  <a href="http://www.covoiturage-libre.fr/'.$lien_dup.'"><font color="#83BE54">http://www.covoiturage-libre.fr/'.$lien_dup.'</font></a></p>
+	<p>&nbsp;</p>
+
+
 <p>Cordialement,</p>
 <p>L\'&eacute;quipe de covoiturage-libre.fr</p></font></td>
   </tr>
@@ -133,7 +147,8 @@ if($mail->Send()){
 	<p>Votre annonce a bien &eacute;t&eacute; enregistr&eacute;e. </p>
 	<p>Cependant, pour valider d&eacute;finitivement votre annonce (et votre adresse email), <strong>veuillez cliquer sur le lien fourni dans l'email de confirmation qui vient de vous &ecirc;tre envoy&eacute;</strong>, sous 24 heures.	</p>
 	<p>Sans r&eacute;ponse de votre part dans ce d&eacute;lai, votre annonce sera automatiquement supprim&eacute;e.</p>
-	<p>&nbsp;</p>
+	<p>Pour dupliquer cette annonce, <a href="<?=$lien_dup?>">cliquez ici</a>.</p>
+	<p>Pour cr&eacute;er le trajet retour, <a href="<?=$lien_ret?>">cliquez ici</a>.</p>
 	<p>L'&eacute;quipe d'organisation.</p>
 	<!-- InstanceEndEditable -->
   </div>

@@ -62,12 +62,14 @@ $totalRows_RStotal = mysql_num_rows($RStotal);
 //fin du code de dreamweaver pour requete mysql
 
  //calcul du nombre de jours passés depuis la création du site  
-$debut = '2011-11-13';
-/*$tDeb = explode("-", $debut);
-$tFin = explode("-", $today);
-$diff = mktime(0, 0, 0, $tFin[1], $tFin[2], $tFin[0]) - mktime(0, 0, 0, $tDeb[1], $tDeb[2], $tDeb[0]);
-$diff=(($diff / 86400)+1);*/
-$diff = round((time() - strtotime($debut)) / 60 / 60 / 24);
+	$debut='2011-11-13';
+    $tDeb = explode("-", $debut);
+    $tFin = explode("-", $today);
+    $diff = mktime(0, 0, 0, $tFin[1], $tFin[2], $tFin[0]) -
+            mktime(0, 0, 0, $tDeb[1], $tDeb[2], $tDeb[0]);
+	$diff=(($diff / 86400)+1);
+	
+	$diff = "134";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/accueil.dwt.php" codeOutsideHTMLIsLocked="false" -->
