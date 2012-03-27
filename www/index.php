@@ -61,13 +61,14 @@ $row_RStotal = mysql_fetch_assoc($RStotal);
 $totalRows_RStotal = mysql_num_rows($RStotal);
 //fin du code de dreamweaver pour requete mysql
 
- //calcul du nombre de jours passés depuis la création du site  
-	$debut='2011-11-13';
-    $tDeb = explode("-", $debut);
-    $tFin = explode("-", $today);
-    $diff = mktime(0, 0, 0, $tFin[1], $tFin[2], $tFin[0]) -
-            mktime(0, 0, 0, $tDeb[1], $tDeb[2], $tDeb[0]);
-	$diff=(($diff / 86400)+1);
+ //calcul du nombre de jours passÃ©s depuis la crÃ©ation du site  
+$debut = '2011-11-13';
+/* ancien code
+$tDeb = explode("-", $debut);
+$tFin = explode("-", $today);
+$diff = mktime(0, 0, 0, $tFin[1], $tFin[2], $tFin[0]) - mktime(0, 0, 0, $tDeb[1], $tDeb[2], $tDeb[0]);
+$diff=(($diff / 86400)+1);*/
+$diff = round((time() - strtotime($debut)) / 60 / 60 / 24);// nouv 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/accueil.dwt.php" codeOutsideHTMLIsLocked="false" -->
@@ -167,12 +168,12 @@ function depart(key_count){
 	 
 	 $('#criteres').toggle(function(){$('#criteresliste').fadeIn();$('#criteres').addClass('on');},function(){$('#criteresliste').fadeOut();$('#criteres').removeClass('on');});
 	 
-	 /* Pour que les drapeaux sélectionnés s'affichent si précédent dans navigateur */
+	 /* Pour que les drapeaux sï¿½lectionnï¿½s s'affichent si prï¿½cï¿½dent dans navigateur */
 	 var pays1 = encodeURI($('input[name=PAYS_DEPART]:checked').val());
 	 var pays2 = encodeURI($('input[name=PAYS_ARRIVEE]:checked').val());
 	 $('#pays_depart_nom').addClass(pays1);
 	 $('#pays_arrivee_nom').addClass(pays2);
-	 /* [FIN] Pour que les drapeaux sélectionnés s'affichent si précédent dans navigateur */
+	 /* [FIN] Pour que les drapeaux sï¿½lectionnï¿½s s'affichent si prï¿½cï¿½dent dans navigateur */
 	 
 
  	});
@@ -180,16 +181,16 @@ function depart(key_count){
  function CHECK()
 {
 	if(document.form1.DEPART.value=='')
-	{alert('Veuillez préciser un lieu de départ s\'il vous plaît');document.form1.DEPART.focus();return false;}
+	{alert('Veuillez prï¿½ciser un lieu de dï¿½part s\'il vous plaï¿½t');document.form1.DEPART.focus();return false;}
 else
 	if(document.form1.DEPART_LAT.value=='')
-	{alert('Veuillez préciser un lieu de départ dans la liste de suggestions s\'il vous plaît');document.form1.DEPART.focus();return false;}
+	{alert('Veuillez prï¿½ciser un lieu de dï¿½part dans la liste de suggestions s\'il vous plaï¿½t');document.form1.DEPART.focus();return false;}
 else
 	if((document.form1.ARRIVEE.value=='')&&(document.form1.DATE_PARCOURS.value==''))
-	{alert('Veuillez préciser au moins un lieu d\'arrivée ou une date pour votre trajet s\'il vous plaît');document.form1.ARRIVEE.focus();return false;}
+	{alert('Veuillez prï¿½ciser au moins un lieu d\'arrivï¿½e ou une date pour votre trajet s\'il vous plaï¿½t');document.form1.ARRIVEE.focus();return false;}
 else
 	if((document.form1.ARRIVEE.value!=='')&&(document.form1.ARRIVEE_LAT.value==''))
-	{alert('Veuillez préciser un lieu d\'arrivée dans la liste de suggestions s\'il vous plaît');document.form1.ARRIVEE.focus();return false;}
+	{alert('Veuillez prï¿½ciser un lieu d\'arrivï¿½e dans la liste de suggestions s\'il vous plaï¿½t');document.form1.ARRIVEE.focus();return false;}
 return true
 }
 
