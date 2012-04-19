@@ -86,10 +86,10 @@ $message = '
 <p>Si vous souhaitez <strong>supprimer</strong> d&eacute;finitivement votre annonce de notre site, cliquez sur le lien ci-dessous.<br />
   <a href="http://www.covoiturage-libre.fr/suppression.php?supp='.$row_RSannonce['CODE_SUPPRESSION'].'"><font color="#be3434">http://www.covoiturage-libre.fr/suppression.php?supp='.$row_RSannonce['CODE_SUPPRESSION'].'</font></a></p>
 <p>&nbsp;</p>
-	<p>Si vous souhaitez créer l\'annonce du trajet retour, cliquez sur le lien ci-dessous.<br />
+	<p>Vous pouvez également créer rapidement l\'annonce du trajet retour en cliquant simplement sur le lien ci-dessous.<br />
 	  <a href="http://www.covoiturage-libre.fr/'.$lien_ret.'"><font color="#83BE54">http://www.covoiturage-libre.fr/'.$lien_ret.'</font></a></p>
 	<p>&nbsp;</p>
-	<p>Si vous souhaitez dupliquer cette annonce, cliquez sur le lien ci-dessous.<br />
+	<p>Si vous souhaitez dupliquer cette annonce rapidement, cliquez sur le lien ci-dessous.<br />
 	  <a href="http://www.covoiturage-libre.fr/'.$lien_dup.'"><font color="#83BE54">http://www.covoiturage-libre.fr/'.$lien_dup.'</font></a></p>
 	<p>&nbsp;</p>
 <p>Cordialement,</p>

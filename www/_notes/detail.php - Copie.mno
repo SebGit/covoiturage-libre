@@ -1,4 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<info>
-	<infoitem key="UD_RStrajet" value="name:ID;datatype:int,name:TYPE;datatype:string,name:DEPART;datatype:string,name:DEPART_LAT;datatype:real,name:DEPART_LON;datatype:real,name:ARRIVEE_LAT;datatype:real,name:ARRIVEE_LON;datatype:real,name:ARRIVEE;datatype:string,name:DATE_PARCOURS;datatype:date,name:HEURE;datatype:time,name:PLACES;datatype:int,name:CONFORT;datatype:string,name:COMMENTAIRES;datatype:blob,name:PRIX;datatype:int,name:ETAPE1;datatype:string,name:PRIX1;datatype:int,name:ETAPE2;datatype:string,name:PRIX2;datatype:int,name:ETAPE3;datatype:string,name:PRIX3;datatype:int,name:CIVILITE;datatype:string,name:NOM;datatype:string,name:EMAIL;datatype:string,name:TELEPHONE;datatype:string,name:DATE_CREATION;datatype:timestamp,name:CODE_CREATION;datatype:string,name:CODE_MODIFICATION;datatype:string" />
-</info>

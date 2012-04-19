@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<info>
-	<infoitem key="UD_RSparcours" value="name:TYPE;datatype:string,name:CIVILITE;datatype:string,name:NOM;datatype:string,name:PLACES;datatype:int,name:DEPART;datatype:string,name:ARRIVEE;datatype:string,name:PRIX;datatype:int,name:DATE_PARCOURS;datatype:date,name:CONFORT;datatype:string,name:CODE_CREATION;datatype:string,name:HEURE;datatype:time" />
-	<infoitem key="UD_RSstats" value="name:STATS;datatype:int" />
-	<infoitem key="UD_RStotal" value="name:STATS;datatype:int" />
-</info>

@@ -35,8 +35,12 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 if (isset($_GET['c'])) {
   $colname_RSannonce = $_GET['c'];
 }
+if (isset($_GET['e'])) {
+  $colname_RSannonce2 = urldecode($_GET['e']);
+}
 mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
-$query_RSannonce = sprintf("SELECT * FROM trajets WHERE CODE_CREATION = %s", GetSQLValueString($colname_RSannonce, "text"));
+$query_RSannonce = sprintf("SELECT * FROM trajets WHERE CODE_CREATION = %s AND EMAIL = %s", GetSQLValueString($colname_RSannonce, "text"), GetSQLValueString($colname_RSannonce2, "text"));
+
 $RSannonce = mysql_query($query_RSannonce, $bddcovoiturette) or die(mysql_error());
 $row_RSannonce = mysql_fetch_assoc($RSannonce);
 $totalRows_RSannonce = mysql_num_rows($RSannonce);
@@ -82,10 +86,10 @@ $message = '
 	  <a href="http://www.covoiturage-libre.fr/suppression.php?supp='.$row_RSannonce['CODE_SUPPRESSION'].'"><font color="#be3434">http://www.covoiturage-libre.fr/suppression.php?supp='.$row_RSannonce['CODE_SUPPRESSION'].'</font></a></p>
 	<p>&nbsp;</p>
 
-	<p>Si vous souhaitez créer l\'annonce du trajet retour, cliquez sur le lien ci-dessous.<br />
+	<p>Vous pouvez également créer rapidement l\'annonce du trajet retour en cliquant simplement sur le lien ci-dessous.<br />
 	  <a href="http://www.covoiturage-libre.fr/'.$lien_ret.'"><font color="#83BE54">http://www.covoiturage-libre.fr/'.$lien_ret.'</font></a></p>
 	<p>&nbsp;</p>
-	<p>Si vous souhaitez dupliquer cette annonce, cliquez sur le lien ci-dessous.<br />
+	<p>Si vous souhaitez dupliquer cette annonce rapidement, cliquez sur le lien ci-dessous.<br />
 	  <a href="http://www.covoiturage-libre.fr/'.$lien_dup.'"><font color="#83BE54">http://www.covoiturage-libre.fr/'.$lien_dup.'</font></a></p>
 	<p>&nbsp;</p>
 
@@ -126,6 +130,29 @@ if($mail->Send()){
 <link rel="stylesheet" type="text/css" href="css/smoothness/jquery-ui-1.8.16.custom.css"/>
 <?php include('include/include.php');?>
 <!-- InstanceBeginEditable name="head" -->
+<style type="text/css">
+.droite {
+	float:right;
+	width:300px;
+	margin-left:20px;
+}
+.bouton {
+	background-color:#ef792f;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	border:none;
+	padding:10px;
+	height:20px;
+	line-height:20px;
+	color:#fff !important;
+	font-size:15px;
+	font-weight:bold;
+	text-decoration:none;
+	margin-top:10px;
+	display:block;
+}
+</style>
 <!-- InstanceEndEditable -->
 </head>
 
@@ -142,14 +169,21 @@ if($mail->Send()){
 	<!-- InstanceBeginEditable name="contenu" -->
 	<h1>Nouveau trajet </h1>
 	<p>&nbsp;</p>
+    <div class="droite">
+      <h3>Raccourcis pratiques</h3>
+      <p>Pour dupliquer l'annonce que vous venez d'enregistrer, cliquez sur le bouton ci-dessous. Le formulaire sera alors pr&eacute;-rempli &agrave; l'identique, sauf pour la date du trajet.</p>
+      <p><a href="<?=$lien_dup?>" class="bouton">&gt; Dupliquer votre annonce</a></p>
+      <p>&nbsp;</p>
+      <p>Pour proposer le trajet retour de votre annonce, cliquez sur le bouton ci-dessous. Le formulaire  sera pr&eacute;-rempli automatiquement, les villes de d&eacute;part et d'arriv&eacute;e seront invers&eacute;es (ainsi que vos &eacute;ventuelles &eacute;tapes). </p>
+      <p><a href="<?=$lien_ret?>" class="bouton">&gt; Proposer le trajet retour</a></p>
+    </div>
 	<h2>Merci !</h2>
 	<p>&nbsp;</p>
 	<p>Votre annonce a bien &eacute;t&eacute; enregistr&eacute;e. </p>
 	<p>Cependant, pour valider d&eacute;finitivement votre annonce (et votre adresse email), <strong>veuillez cliquer sur le lien fourni dans l'email de confirmation qui vient de vous &ecirc;tre envoy&eacute;</strong>, sous 24 heures.	</p>
 	<p>Sans r&eacute;ponse de votre part dans ce d&eacute;lai, votre annonce sera automatiquement supprim&eacute;e.</p>
-	<p>Pour dupliquer cette annonce, <a href="<?=$lien_dup?>">cliquez ici</a>.</p>
-	<p>Pour cr&eacute;er le trajet retour, <a href="<?=$lien_ret?>">cliquez ici</a>.</p>
-	<p>L'&eacute;quipe d'organisation.</p>
+	<p>&nbsp;</p>
+<p>L'&eacute;quipe d'organisation.</p>
 	<!-- InstanceEndEditable -->
   </div>
     

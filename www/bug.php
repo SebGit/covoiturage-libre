@@ -42,7 +42,14 @@
 	    <td><h2 class="dispo1">Correction des bugs/am&eacute;liorations</h2>
 	      <p><strong>Chaque bug corrig&eacute; / am&eacute;lioration  est un pas de plus vers le site parfait !</strong></p>
 	      <p>&nbsp;</p>
-	      <h3>12/03/2012 - Bug Google Maps</h3>
+	      <h3 class="dispo1">27/03/2012 - Am&eacute;liorations pratiques</h3>
+<p>&gt; Afin de faire gagner du temps &agrave; celles et ceux qui utilisent r&eacute;guli&egrave;rement ce site, 2 nouveaux boutons ont &eacute;t&eacute; ajout&eacute;s sur le site, apr&egrave;s la cr&eacute;ation d'une annonce. </p>
+          <p>Ainsi, gr&acirc;ce &agrave; ces boutons, le formulaire de cr&eacute;ation d'annonce sera pr&eacute;-rempli si vous souhaitez <strong>dupliquer l'annonce</strong> nouvellement enregistr&eacute;e, ou encore cr&eacute;er le <strong>trajet retour</strong> de ce trajet. </p>
+          <p>Ainsi, vous devriez gagner du temps dans vos d&eacute;marches.</p>
+          <p>&gt; Petite am&eacute;lioration &eacute;galement du moteur de recherche qui permet, quant on est sur le d&eacute;tail d'une annonce, de revenir sur les r&eacute;sultats de la recherche <strong>SANS avoir &agrave; recharger les donn&eacute;es du formulaire</strong>.</p>
+          <p>&gt; Enfin, sur le d&eacute;tail d'une annonce, il est possible, pour les cr&eacute;ateurs de l'annonce, de recevoir &agrave; nouveau l'email de confirmation s'ils ont perdu l'email d'origine. Ainsi, ils retrouvent rapidement les liens pour modifier/supprimer leur annonce.</p>
+          <p>&nbsp;</p>
+          <h3>12/03/2012 - Bug Google Maps</h3>
 	      <p>&gt; Lors de la<strong> v&eacute;rification d'un parcours</strong>, &agrave; la cr&eacute;ation d'une annonce, certaines villes (comme Lyon) &eacute;taient mal localis&eacute;es. Mise en place d'une nouvelle m&eacute;thode de communication avec Google Maps API pour r&eacute;soudre ce probl&egrave;me.<br />
 	        <em>Merci &agrave; 
 	      Benoit G. de m'avoir signal&eacute; ce probl&egrave;me</em></p>

@@ -22,6 +22,21 @@ header('HTTP/1.0 403 Forbidden');
 		<p>&nbsp;</p>
 		<p>L'acc&egrave;s &agrave; cette ressource est interdit dans ces conditions.</p>
 		<p>&nbsp;</p>
+		<p><a href="index.php">&lt; retour &agrave; la page d'accueil du site</a></p>
+		<p>&nbsp;</p>
+		<p>Vous avez p&ucirc; &eacute;t&eacute; redirig&eacute;(e) sur cette page si vous avez attendu <strong>plus de 20 minutes</strong> pour</p>
+		<p>-  visualiser une annonce depuis une recherche</p>
+		<p>- relancer une recherche depuis une page de r&eacute;sultats</p>
+		<p>- enregistrer votre annonce</p>
+		<p>&nbsp;</p>
+		<p><strong>Cette &quot;s&eacute;curit&eacute;&quot; est mise en plage pour contrer certains types de piratages informatiques. </strong>		</p>
+		<p>&nbsp;</p>
+		<p>D&eacute;sol&eacute; pour la g&ecirc;ne occasionn&eacute;e, </p>
+		<p>&nbsp;</p>
+		<p>Merci de votre compr&eacute;hension.</p>
+		<p>&nbsp;</p>
+		<p>Nicolas RAYNAUD		</p>
+		<p>&nbsp;</p>
 	</div>
     
     <div id="footer">

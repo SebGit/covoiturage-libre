@@ -156,11 +156,11 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
   mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
   $Result1 = mysql_query($insertSQL, $bddcovoiturette) or die(mysql_error());
 
-  $insertGoTo = "confirmation.php?c=".$wpas;
-  if (isset($_SERVER['QUERY_STRING'])) {
+  $insertGoTo = "confirmation.php?c=" . $wpas . "&e=" . urlencode($_POST['EMAIL']);
+ /* if (isset($_SERVER['QUERY_STRING'])) {
     $insertGoTo .= (strpos($insertGoTo, '?')) ? "&" : "?";
     $insertGoTo .= $_SERVER['QUERY_STRING'];
-  }
+  }*/
   header(sprintf("Location: %s", $insertGoTo));
 }
 
@@ -169,6 +169,7 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 
 $Heure = array('12', '00');
 $pays_js = '';
+$comm_duplicate = '';
 function checkVal($name, $val = NULL, $type = NULL) {
 	global $TrajR;
 	$return = '';
@@ -248,8 +249,13 @@ if (isset($_GET['c']) && !empty($_GET['c']) && isset($_GET['c2']) && !empty($_GE
 			$TrajR['ETAPE2_LON']	= $Traj['ETAPE1_LON'];
 			$TrajR['PRIX1'] = $Traj['PRIX'] - $Traj['PRIX2'];
 			$TrajR['PRIX2'] = $Traj['PRIX'] - $Traj['PRIX1'];
+		} elseif ($etape1) {
+			$TrajR['PRIX1'] = $Traj['PRIX'] - $Traj['PRIX1'];
 		}
+	} elseif ($_GET['a'] == 'd') {
+		$comm_duplicate = $Traj['COMMENTAIRES'];
 	}
+	
 	
 	$PaysNum = array('BE'=>0, 'DE'=>1, 'ES'=>2, 'FR'=>3, 'IT'=>4, 'LU'=>5, 'CH'=>7);
 	
@@ -759,8 +765,8 @@ $(document).ready(function() {
           <p>          (d&eacute;tails sur votre parcours, sur le lieu pr&eacute;cis du d&eacute;part, sur  vos attentes, si vous &ecirc;tes fumeur, si vous acceptez les animaux de compagnie, etc.)</p></td>
         </tr>
         <tr>
-          <td colspan="2"><label for="COMMENTAIRES"></label>
-          <textarea name="COMMENTAIRES" id="COMMENTAIRES" cols="45" rows="5"></textarea></td>
+          <td colspan="2">
+          <textarea name="COMMENTAIRES" id="COMMENTAIRES" cols="45" rows="5"><?=$comm_duplicate?></textarea></td>
         </tr>
         <tr>
           <td>&nbsp;</td>

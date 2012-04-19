@@ -48,10 +48,16 @@ border:1px solid #CCC;
 	<h1>L'association</h1>
     <div id="droite">
     <h2>Montant total</h2>
-    <p><strong>Total net des dons per&ccedil;us en 2012 :</strong> <strong><span class="dispo0">275,52 &euro;</span></strong></p>
+    <p><strong>Total net des dons per&ccedil;us en 2012 :</strong> <strong><span class="dispo0">314,34 &euro;</span></strong></p>
     <p>&nbsp;</p>
     <h2>Liste des donateurs    </h2>
     <ul>
+      <li>Charly (NC) - 5 &euro;</li>
+      <li>Julie (29) - 5 &euro;</li>
+      <li>Maxime (29) - 5 &euro;</li>
+      <li><em>Anonyme</em> - 10 &euro;</li>
+      <li>Victoria (44) - 5 &euro;</li>
+      <li>Nicole (17) - 15 &euro;</li>
       <li>Rapha&euml;l (NC) - 1 &euro;</li>
       <li>St&eacute;phane (NC) - 10 &euro;</li>
       <li>Quentin (35) - 10 &euro;</li>

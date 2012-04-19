@@ -63,7 +63,7 @@ $totalRows_RStrajet = mysql_num_rows($RStrajet);
 			
 			if($totalRows_RStrajet==1){
 			mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
-			$query_RSupdate = sprintf("UPDATE trajets SET STATUT='Supprime', IP_SUPPRESSION='".$ip."' WHERE CODE_SUPPRESSION = %s AND EMAIL = %s", GetSQLValueString($colname_RStrajet, "date"), GetSQLValueString($colname_RStrajet2, "text"));
+			$query_RSupdate = sprintf("UPDATE trajets SET STATUT='Supprime', IP_SUPPRESSION='".$ip."' WHERE CODE_SUPPRESSION = %s AND EMAIL = %s", GetSQLValueString($colname_RStrajet, "text"), GetSQLValueString($colname_RStrajet2, "text"));
 			$RSupdate = mysql_query($query_RSupdate, $bddcovoiturette) or die(mysql_error());
 			
 			$texte="<h2>Annonce supprim&eacute;ee !</h2>

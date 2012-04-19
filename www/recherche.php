@@ -170,7 +170,7 @@ if ($_POST['ARRIVEE'] !== '') {
 	
 	$formulearrsql=','.$formulearr1.','.$formulearr2.','.$formulearr3.','.$formulearr4;
 	
-	$requetearr="AND (ARR1<='".$arriveekm."' OR ARR2<='".$arriveekm."' OR ARR3<='".$arriveekm."' OR ARR4<='".$arriveekm."')";
+	$requetearr="AND ((ARR1<='".$arriveekm."' OR ARR1 IS NULL) OR ARR2<='".$arriveekm."' OR ARR3<='".$arriveekm."' OR ARR4<='".$arriveekm."')";
 	$class='class="check"';
 }
 
@@ -493,7 +493,7 @@ return true
         <?php endif; ?> 
         </div>
         <div id="navlink">
-        <?php if ($totalPages_rs > 1) : ?>
+        <?php if ($totalPages_rs > 0) : ?>
 		<?=$page_nav?>
         <?php endif; ?>
     	</div>
