@@ -7,7 +7,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($bddcovoiturette, $theValue) : mysqli_escape_string($bddcovoiturette, $theValue);
 
   switch ($theType) {
     case "text":
@@ -84,8 +84,8 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
 	  die();
 		}
 
-  mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
-  $Result1 = mysql_query($updateSQL, $bddcovoiturette) or die(mysql_error());
+  mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
+  $Result1 = mysqli_query($bddcovoiturette ,$updateSQL) or die(mysqli_error($bddcovoiturette));
 
   $updateGoTo = "modification-ok.php";
   if (isset($_SERVER['QUERY_STRING'])) {
@@ -101,11 +101,11 @@ $colname_RStrajet = "-1";
 if (isset($_GET['m'])) {
   $colname_RStrajet = $_GET['m'];
 }
-mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
+mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
 $query_RStrajet = sprintf("SELECT * FROM trajets WHERE CODE_MODIFICATION = %s AND DATE_PARCOURS>='".$date."' AND STATUT='Valide'", GetSQLValueString($colname_RStrajet, "text"));
-$RStrajet = mysql_query($query_RStrajet, $bddcovoiturette) or die(mysql_error());
-$row_RStrajet = mysql_fetch_assoc($RStrajet);
-$totalRows_RStrajet = mysql_num_rows($RStrajet);
+$RStrajet = mysqli_query($bddcovoiturette ,$query_RStrajet) or die(mysqli_error($bddcovoiturette));
+$row_RStrajet = mysqli_fetch_assoc($RStrajet);
+$totalRows_RStrajet = mysqli_num_rows($RStrajet);
 
 if($totalRows_RStrajet!==1){
 	header('location:modification-erreur.php');
@@ -589,5 +589,5 @@ une femme</td>
 </body>
 <!-- InstanceEnd --></html>
 <?php
-mysql_free_result($RStrajet);
+mysqli_free_result($RStrajet);
 ?>

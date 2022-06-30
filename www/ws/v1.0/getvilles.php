@@ -9,7 +9,7 @@ mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
 $ville = mysql_real_escape_string(stripslashes($_GET['debut']));
 
 $query = "SELECT commune as ville FROM `villes_ws` WHERE commune LIKE '" . $ville . "%' LIMIT 20";
-$RSvilles = mysql_query($query, $bddcovoiturette) or die(mysql_error());
+$RSvilles = mysqli_query($bddcovoiturette ,$query) or die(mysql_error());
 
 $totalVilles = mysql_num_rows($RSvilles);
 $xmlstr = '<?xml version="1.0" encoding="UTF-8"?>';

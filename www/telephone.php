@@ -7,7 +7,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($bddcovoiturette, $theValue) : mysqli_escape_string($bddcovoiturette, $theValue);
 
   switch ($theType) {
     case "text":
@@ -34,10 +34,10 @@ $colname_RStrajet2 = "-1";
 if (isset($_GET['c'])) {
   $colname_RStrajet2 = $_GET['c'];
 }
-mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
+mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
 $query_RStrajet2 = sprintf("SELECT * FROM trajets WHERE CODE_CREATION = %s", GetSQLValueString($colname_RStrajet2, "text"));
-$RStrajet2 = mysql_query($query_RStrajet2, $bddcovoiturette) or die(mysql_error());
-$row_RStrajet2 = mysql_fetch_assoc($RStrajet2);
+$RStrajet2 = mysqli_query($bddcovoiturette ,$query_RStrajet2) or die(mysqli_error($bddcovoiturette));
+$row_RStrajet2 = mysqli_fetch_assoc($RStrajet2);
 
 if(!isset($_GET['c']))
 {
@@ -55,5 +55,5 @@ $text_color = imagecolorallocate ($im, 102,102,102);//black text
 imagestring ($im, $font, 0, 0,  $string, $text_color);
 imagepng ($im);
 imagedestroy($im);
-mysql_free_result($RStrajet2);
+mysqli_free_result($RStrajet2);
 ?>

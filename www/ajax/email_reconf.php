@@ -42,7 +42,7 @@ if (isset($_POST['c'])) {
 $colname_RSannonce = $_POST['c'];
 mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
 $query_RSannonce = sprintf("SELECT * FROM trajets WHERE CODE_CREATION = '%s'", GetSQLValueString($colname_RSannonce, "text"));
-$RSannonce = mysql_query($query_RSannonce, $bddcovoiturette) or die(mysql_error());
+$RSannonce = mysqli_query($bddcovoiturette ,$query_RSannonce) or die(mysql_error());
 $row_RSannonce = mysql_fetch_assoc($RSannonce);
 $totalRows_RSannonce = mysql_num_rows($RSannonce);
 

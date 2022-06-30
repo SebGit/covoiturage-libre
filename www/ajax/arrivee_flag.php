@@ -3,11 +3,12 @@
 if (!function_exists("GetSQLValueString")) {
 function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
 {
+  global $bddcovoiturette;
   if (PHP_VERSION < 6) {
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = mysqli_real_escape_string($bddcovoiturette, $theValue);
 
   switch ($theType) {
     case "text":
@@ -42,12 +43,12 @@ if (isset($_GET['PAYS'])) {
   $colname_RSpays = utf8_decode($_GET['PAYS']);
 }
 
-mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
+mysqli_select_db($bddcovoiturette, $database_bddcovoiturette);
 $query_RSville = sprintf("SELECT * FROM villes WHERE COMMUNE LIKE %s AND PAYS = %s ORDER BY COMMUNE ASC", GetSQLValueString($colname_RSville . "%", "text"),  GetSQLValueString($colname_RSpays, "text"));
 
-$RSville = mysql_query($query_RSville, $bddcovoiturette) or die(mysql_error());
-$row_RSville = mysql_fetch_assoc($RSville);
-$totalRows_RSville = mysql_num_rows($RSville);
+$RSville = mysqli_query($bddcovoiturette ,$query_RSville) or die(mysqli_error($bddcovoiturette));
+$row_RSville = mysqli_fetch_assoc($RSville);
+$totalRows_RSville = mysqli_num_rows($RSville);
 
 /*Tout le code ci-dessus est issu de dreamweaver. La ligne 36 a cependant été enrichie avec "utf8_decode" afin de corriger les problèmes d'accents dans la fonction AJAX.
 
@@ -58,7 +59,7 @@ La ligne 38 a été créée afin de permettre une saisie de ville avec tiret (les vi
   <ul id="ville_arrivee">
 <?php if($totalRows_RSville>0){ do { ?>
   <li><a href="#" onclick="go_ville(event)" lat="<?php echo $row_RSville['LATITUDE']; ?>" lon="<?php echo $row_RSville['LONGITUDE']; ?>"><?php echo htmlentities($row_RSville['COMMUNE']); ?> (<?php echo $row_RSville['PAYS'] . " - " . $row_RSville['CPOSTAL']; ?>)</a></li>
-  <?php } while ($row_RSville = mysql_fetch_assoc($RSville));}?>
+  <?php } while ($row_RSville = mysqli_fetch_assoc($RSville));}?>
   </ul>
   <script type="text/javascript">
   /*La fonction ci-dessous sert à prévenir le comportement des touches du clavier. "Tab" et "Entrée" valide le premier choix affiché. Les flèches sont quant à elles annulées (elles causaient un plantage de l'ajax)*/
@@ -99,5 +100,5 @@ La ligne 38 a été créée afin de permettre une saisie de ville avec tiret (les vi
   }
   </script>
 <?php
-mysql_free_result($RSville);
+mysqli_free_result($RSville);
 ?>

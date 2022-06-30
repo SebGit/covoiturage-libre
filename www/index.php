@@ -16,7 +16,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($bddcovoiturette, $theValue) : mysqli_escape_string($bddcovoiturette, $theValue);
 
   switch ($theType) {
     case "text":
@@ -42,23 +42,23 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 
 $today=Date("Y-m-d");
 
-mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
+mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
 $query_RSparcours = "SELECT TYPE, CIVILITE, NOM, PLACES, DEPART, ARRIVEE, PRIX, DATE_PARCOURS, CONFORT, CODE_CREATION, HEURE FROM trajets WHERE DATE_PARCOURS>=curdate() AND STATUT='Valide' ORDER BY ID DESC LIMIT 10";
-$RSparcours = mysql_query($query_RSparcours, $bddcovoiturette) or die(mysql_error());
-$row_RSparcours = mysql_fetch_assoc($RSparcours);
-$totalRows_RSparcours = mysql_num_rows($RSparcours);
+$RSparcours = mysqli_query($bddcovoiturette , $query_RSparcours) or die(mysqli_error($bddcovoiturette));
+$row_RSparcours = mysqli_fetch_assoc($RSparcours);
+$totalRows_RSparcours = mysqli_num_rows($RSparcours);
 
-mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
+mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
 $query_RSstats = "SELECT COUNT(ID) AS STATS FROM trajets WHERE DATE_PARCOURS>=curdate() AND STATUT='Valide'";
-$RSstats = mysql_query($query_RSstats, $bddcovoiturette) or die(mysql_error());
-$row_RSstats = mysql_fetch_assoc($RSstats);
-$totalRows_RSstats = mysql_num_rows($RSstats);
+$RSstats = mysqli_query($bddcovoiturette , $query_RSstats) or die(mysqli_error($bddcovoiturette));
+$row_RSstats = mysqli_fetch_assoc($RSstats);
+$totalRows_RSstats = mysqli_num_rows($RSstats);
 
-mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
+mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
 $query_RStotal = "SELECT COUNT(ID) AS STATS FROM trajets WHERE STATUT='Valide' OR STATUT='Supprime'";
-$RStotal = mysql_query($query_RStotal, $bddcovoiturette) or die(mysql_error());
-$row_RStotal = mysql_fetch_assoc($RStotal);
-$totalRows_RStotal = mysql_num_rows($RStotal);
+$RStotal = mysqli_query($bddcovoiturette ,$query_RStotal) or die(mysqli_error($bddcovoiturette));
+$row_RStotal = mysqli_fetch_assoc($RStotal);
+$totalRows_RStotal = mysqli_num_rows($RStotal);
 //fin du code de dreamweaver pour requete mysql
 
  //calcul du nombre de jours passés depuis la création du site  
@@ -300,7 +300,12 @@ return true
     <div id="contenu">
 	<!-- InstanceBeginEditable name="contenu" -->
 	<h1>Les 10 derni&egrave;res annonces publi&eacute;es</h1>
-	<?php do { include('include-annonce.php'); } while ($row_RSparcours = mysql_fetch_assoc($RSparcours)); ?>
+	<?php
+          if ($totalRows_RSparcours > 0)
+          {
+	     do { include('include-annonce.php'); } while ($row_RSparcours = mysqli_fetch_assoc($RSparcours));
+	  }
+        ?>
     <!-- InstanceEndEditable -->
   </div>
   
@@ -313,9 +318,9 @@ return true
 </body>
 <!-- InstanceEnd --></html>
 <?php
-mysql_free_result($RSparcours);
+mysqli_free_result($RSparcours);
 
-mysql_free_result($RSstats);
+mysqli_free_result($RSstats);
 
-mysql_free_result($RStotal);
+mysqli_free_result($RStotal);
 ?>

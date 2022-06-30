@@ -27,7 +27,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($bddcovoiturette, $theValue) : mysqli_escape_string($bddcovoiturette, $theValue);
 
   switch ($theType) {
     case "text":
@@ -153,8 +153,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		}
 
 
-  mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
-  $Result1 = mysql_query($insertSQL, $bddcovoiturette) or die(mysql_error());
+  mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
+  $Result1 = mysqli_query($bddcovoiturette ,$insertSQL) or die(mysqli_error($bddcovoiturette));
 
   $insertGoTo = "confirmation.php?c=".$wpas;
   if (isset($_SERVER['QUERY_STRING'])) {

@@ -27,7 +27,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($bddcovoiturette, $theValue) : mysqli_escape_string($bddcovoiturette, $theValue);
 
   switch ($theType) {
     case "text":
@@ -153,8 +153,8 @@ if ((isset($_POST["MM_insert"])) && ($_POST["MM_insert"] == "form1")) {
 		}
 
 
-  mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
-  $Result1 = mysql_query($insertSQL, $bddcovoiturette) or die(mysql_error());
+  mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
+  $Result1 = mysqli_query($bddcovoiturette ,$insertSQL) or die(mysqli_error($bddcovoiturette));
 
   $insertGoTo = "confirmation.php?c=" . $wpas . "&e=" . urlencode($_POST['EMAIL']);
  /* if (isset($_SERVER['QUERY_STRING'])) {
@@ -173,16 +173,18 @@ $comm_duplicate = '';
 function checkVal($name, $val = NULL, $type = NULL) {
 	global $TrajR;
 	$return = '';
-	if ($type == 'option') {
+	if (isset ($TrajR[$name]))
+	{
+	    if ($type == 'option') {
 		if ($TrajR[$name] == $val) {
 			$return = ' selected="selected" ';
 		}
-	} elseif (!$val) {
+	     } elseif (!$val) {
 		$return = ' value="' . $TrajR[$name] . '" ';
-	} elseif ($TrajR[$name] == $val) {
+	     } elseif ($TrajR[$name] == $val) {
 		$return = ' checked="checked" ';
+	     }
 	}
-	
 	return $return;
 }
 
@@ -199,12 +201,12 @@ if (isset($_GET['c']) && !empty($_GET['c']) && isset($_GET['c2']) && !empty($_GE
 	}
 	
 	// get trajet infos
-	 mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
+	 mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
 	$query_RStrajet = sprintf("SELECT * FROM trajets WHERE 1 AND CODE_CREATION = %s LIMIT 1", GetSQLValueString($_GET['c'], "text"));
 	
-	$RStrajet = mysql_query($query_RStrajet, $bddcovoiturette) or die(mysql_error());
-	$Traj = mysql_fetch_assoc($RStrajet);
-	mysql_free_result($RStrajet);
+	$RStrajet = mysqli_query($bddcovoiturette ,$query_RStrajet) or die(mysqli_error($bddcovoiturette));
+	$Traj = mysqli_fetch_assoc($RStrajet);
+	mysqli_free_result($RStrajet);
 	
 	// check email code
 	if (strcmp(sha1($Traj['EMAIL'] . "_covoiturette2353"), $_GET['c2']) !== 0) {

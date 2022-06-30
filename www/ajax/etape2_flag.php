@@ -45,7 +45,7 @@ if (isset($_GET['PAYS'])) {
 mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
 //$query_RSville = sprintf("SELECT * FROM villes WHERE COMMUNE LIKE %s ORDER BY COMMUNE ASC", GetSQLValueString($colname_RSville . "%", "text"));
 $query_RSville = sprintf("SELECT * FROM villes WHERE COMMUNE LIKE %s AND PAYS = %s ORDER BY COMMUNE ASC", GetSQLValueString($colname_RSville . "%", "text"),  GetSQLValueString($colname_RSpays, "text"));
-$RSville = mysql_query($query_RSville, $bddcovoiturette) or die(mysql_error());
+$RSville = mysqli_query($bddcovoiturette ,$query_RSville) or die(mysql_error());
 $row_RSville = mysql_fetch_assoc($RSville);
 $totalRows_RSville = mysql_num_rows($RSville);
 
