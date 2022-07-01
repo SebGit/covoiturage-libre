@@ -8,7 +8,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($bddcovoiturette, $theValue) : mysqli_escape_string($bddcovoiturette, $theValue);
 
   switch ($theType) {
     case "text":
@@ -38,12 +38,12 @@ if (isset($_GET['c'])) {
 if (isset($_GET['e'])) {
   $colname_RSannonce2 = urldecode($_GET['e']);
 }
-mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
+mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
 $query_RSannonce = sprintf("SELECT * FROM trajets WHERE CODE_CREATION = %s AND EMAIL = %s", GetSQLValueString($colname_RSannonce, "text"), GetSQLValueString($colname_RSannonce2, "text"));
 
-$RSannonce = mysql_query($query_RSannonce, $bddcovoiturette) or die(mysql_error());
-$row_RSannonce = mysql_fetch_assoc($RSannonce);
-$totalRows_RSannonce = mysql_num_rows($RSannonce);
+$RSannonce = mysqli_query($bddcovoiturette ,$query_RSannonce) or die(mysqli_error($bddcovoiturette));
+$row_RSannonce = mysqli_fetch_assoc($RSannonce);
+$totalRows_RSannonce = mysqli_num_rows($RSannonce);
 
 $sqldate = $row_RSannonce['DATE_PARCOURS'];
 
@@ -194,5 +194,5 @@ if($mail->Send()){
 </body>
 <!-- InstanceEnd --></html>
 <?php
-mysql_free_result($RSannonce);
+mysqli_free_result($RSannonce);
 ?>

@@ -11,7 +11,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($bddcovoiturette, $theValue) : mysqli_escape_string($bddcovoiturette, $theValue);
 
   switch ($theType) {
     case "text":
@@ -35,17 +35,17 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
 }
 }
 
-mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
+mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
 $query_RSstats = "SELECT COUNT(ID) AS STATS, DATE_CREATION, date_format(DATE_CREATION, '%d/%m/%Y') as DATE_FR FROM `trajets` WHERE STATUT!='En attente' GROUP BY DATE_FR ORDER BY DATE_CREATION DESC";
-$RSstats = mysql_query($query_RSstats, $bddcovoiturette) or die(mysql_error());
-$row_RSstats = mysql_fetch_assoc($RSstats);
-$totalRows_RSstats = mysql_num_rows($RSstats);
+$RSstats = mysqli_query($bddcovoiturette ,$query_RSstats) or die(mysqli_error($bddcovoiturette));
+$row_RSstats = mysqli_fetch_assoc($RSstats);
+$totalRows_RSstats = mysqli_num_rows($RSstats);
 
-mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
+mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
 $query_RSmax = "SELECT COUNT(ID) AS STATS, DATE_CREATION, date_format(DATE_CREATION, '%d/%m/%Y') as DATE_FR FROM `trajets` WHERE STATUT!='En attente'  GROUP BY DATE_FR ORDER BY STATS DESC LIMIT 1";
-$RSmax = mysql_query($query_RSmax, $bddcovoiturette) or die(mysql_error());
-$row_RSmax = mysql_fetch_assoc($RSmax);
-$totalRows_RSmax = mysql_num_rows($RSmax);
+$RSmax = mysqli_query($bddcovoiturette ,$query_RSmax) or die(mysqli_error($bddcovoiturette));
+$row_RSmax = mysqli_fetch_assoc($RSmax);
+$totalRows_RSmax = mysqli_num_rows($RSmax);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -86,13 +86,13 @@ $str_dat = $jour_fr[$wd];?>
       <td><div class="barre" style="width:<?php echo round(($row_RSstats['STATS']/$row_RSmax['STATS'])*100); ?>%"></div></td>
       <td width="150"><?php echo $row_RSstats['STATS']; ?></td>
     </tr>
-    <?php } while ($row_RSstats = mysql_fetch_assoc($RSstats)); ?>
+    <?php } while ($row_RSstats = mysqli_fetch_assoc($RSstats)); ?>
 </table>
 <p>&nbsp;</p>
 </body>
 </html>
 <?php
-mysql_free_result($RSstats);
+mysqli_free_result($RSstats);
 
-mysql_free_result($RSmax);
+mysqli_free_result($RSmax);
 ?>

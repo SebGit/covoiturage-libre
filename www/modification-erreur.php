@@ -42,8 +42,8 @@ if ((isset($_POST["MM_update"])) && ($_POST["MM_update"] == "form1")) {
                        GetSQLValueString($_POST['TELEPHONE'], "text"),
                        GetSQLValueString($_POST['c'], "text"));
 
-  mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
-  $Result1 = mysql_query($updateSQL, $bddcovoiturette) or die(mysql_error());
+  mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
+  $Result1 = mysqli_query($bddcovoiturette ,$updateSQL) or die(mysqli_error($bddcovoiturette));
 
   $updateGoTo = "modification-ok.php";
   if (isset($_SERVER['QUERY_STRING'])) {

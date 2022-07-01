@@ -21,7 +21,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($bddcovoiturette, $theValue) : mysqli_escape_string($bddcovoiturette, $theValue);
 
   switch ($theType) {
     case "text":
@@ -49,11 +49,11 @@ $colname_RStrajet = "-1";
 if (isset($_GET['c'])) {
   $colname_RStrajet = $_GET['c'];
 }
-mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
+mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
 $query_RStrajet = sprintf("SELECT * FROM trajets WHERE CODE_CREATION = %s", GetSQLValueString($colname_RStrajet, "text"));
-$RStrajet = mysql_query($query_RStrajet, $bddcovoiturette) or die(mysql_error());
-$row_RStrajet = mysql_fetch_assoc($RStrajet);
-$totalRows_RStrajet = mysql_num_rows($RStrajet);
+$RStrajet = mysqli_query($bddcovoiturette ,$query_RStrajet) or die(mysqli_error($bddcovoiturette));
+$row_RStrajet = mysqli_fetch_assoc($RStrajet);
+$totalRows_RStrajet = mysqli_num_rows($RStrajet);
 
 $arrivee=$row_RStrajet['ARRIVEE'];
 $prix=$row_RStrajet['PRIX'];
@@ -388,5 +388,5 @@ $(document).ready(function(){
 </body>
 <!-- InstanceEnd --></html>
 <?php
-mysql_free_result($RStrajet);
+mysqli_free_result($RStrajet);
 ?>

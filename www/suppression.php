@@ -12,7 +12,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($bddcovoiturette, $theValue) : mysqli_escape_string($bddcovoiturette, $theValue);
 
   switch ($theType) {
     case "text":
@@ -47,11 +47,11 @@ $colname_RStrajet2 = "-1";
 if (isset($_POST['EMAIL'])) {
   $colname_RStrajet2 = $_POST['EMAIL'];
 }
-mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
+mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
 $query_RStrajet = sprintf("SELECT * FROM trajets WHERE CODE_SUPPRESSION = %s AND EMAIL = %s", GetSQLValueString($colname_RStrajet, "date"), GetSQLValueString($colname_RStrajet2, "text"));
-$RStrajet = mysql_query($query_RStrajet, $bddcovoiturette) or die(mysql_error());
-$row_RStrajet = mysql_fetch_assoc($RStrajet);
-$totalRows_RStrajet = mysql_num_rows($RStrajet);
+$RStrajet = mysqli_query($bddcovoiturette ,$query_RStrajet) or die(mysqli_error($bddcovoiturette));
+$row_RStrajet = mysqli_fetch_assoc($RStrajet);
+$totalRows_RStrajet = mysqli_num_rows($RStrajet);
 
 	if(isset($_POST['CODE'])){
 		if ( chk_crypt($_POST['CODE']) ) $code_result_ok = true;
@@ -62,9 +62,9 @@ $totalRows_RStrajet = mysql_num_rows($RStrajet);
 		if ( $code_result_ok === true ) {
 			
 			if($totalRows_RStrajet==1){
-			mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
+			mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
 			$query_RSupdate = sprintf("UPDATE trajets SET STATUT='Supprime', IP_SUPPRESSION='".$ip."' WHERE CODE_SUPPRESSION = %s AND EMAIL = %s", GetSQLValueString($colname_RStrajet, "text"), GetSQLValueString($colname_RStrajet2, "text"));
-			$RSupdate = mysql_query($query_RSupdate, $bddcovoiturette) or die(mysql_error());
+			$RSupdate = mysqli_query($bddcovoiturette ,$query_RSupdate) or die(mysqli_error($bddcovoiturette));
 			
 			$texte="<h2>Annonce supprim&eacute;ee !</h2>
 		<p>Votre annonce a bien &eacute;t&eacute; supprim&eacute;ee. Elle n'est plus disponible sur notre site.</p>
@@ -150,5 +150,5 @@ $totalRows_RStrajet = mysql_num_rows($RStrajet);
 </body>
 <!-- InstanceEnd --></html>
 <?php
-mysql_free_result($RStrajet);
+mysqli_free_result($RStrajet);
 ?>

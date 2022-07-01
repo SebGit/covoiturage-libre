@@ -37,7 +37,7 @@ $tri	= mysql_real_escape_string(stripslashes($_GET['tri']));
 /* *** */
 // latlong villes
 $query = "SELECT longitude, latitude FROM `villes_ws` WHERE commune = '" . $vdep . "'";
-$RSville = mysql_query($query, $bddcovoiturette) or die(mysql_error());
+$RSville = mysqli_query($bddcovoiturette ,$query) or die(mysql_error());
 $row_RSville = mysql_fetch_assoc($RSville);
 $vdep_long	= $row_RSville['longitude'];
 $vdep_lat	= $row_RSville['latitude'];
@@ -46,7 +46,7 @@ mysql_free_result($RSville);
 //
 
 $query = "SELECT longitude, latitude FROM `villes_ws` WHERE commune = '" . $varr . "'";
-$RSville = mysql_query($query, $bddcovoiturette) or die(mysql_error());
+$RSville = mysqli_query($bddcovoiturette ,$query) or die(mysql_error());
 $row_RSville = mysql_fetch_assoc($RSville);
 $varr_long	= $row_RSville['longitude'];
 $varr_lat	= $row_RSville['latitude'];
@@ -163,7 +163,7 @@ $query_RSparcours = "
 
 //echo $query_RSparcours;
 
-$RSParc = mysql_query($query_RSparcours, $bddcovoiturette) or die(mysql_error());
+$RSParc = mysqli_query($bddcovoiturette ,$query_RSparcours) or die(mysql_error());
 $totalParc = mysql_num_rows($RSParc);
 $totalParc2 = 0;
 // pagination
@@ -172,7 +172,7 @@ if ($totalParc > 0) {
 	$to = ($page - 1) * $npp;
 	$limit = "LIMIT ".$to.", " . $npp;
 	$query_RSparcours .= $limit;
-	$RSParc = mysql_query($query_RSparcours, $bddcovoiturette) or die(mysql_error());
+	$RSParc = mysqli_query($bddcovoiturette ,$query_RSparcours) or die(mysql_error());
 	$totalParc2 = mysql_num_rows($RSParc);
 }
 // /pagination

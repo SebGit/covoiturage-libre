@@ -77,7 +77,7 @@ function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDe
     $theValue = get_magic_quotes_gpc() ? stripslashes($theValue) : $theValue;
   }
 
-  $theValue = function_exists("mysql_real_escape_string") ? mysql_real_escape_string($theValue) : mysql_escape_string($theValue);
+  $theValue = function_exists("mysqli_real_escape_string") ? mysqli_real_escape_string($bddcovoiturette, $theValue) : mysqli_escape_string($bddcovoiturette, $theValue);
 
   switch ($theType) {
     case "text":
@@ -197,7 +197,7 @@ if ($_POST['DATE_PARCOURS']=='') {
 	$requete="AND DATE_PARCOURS>=curdate()";
 }
 
-mysql_select_db($database_bddcovoiturette, $bddcovoiturette);
+mysqli_select_db($bddcovoiturette , $database_bddcovoiturette);
 if($_POST['ARRIVEE']!==''){
 $query_RSparcours = sprintf("SELECT *, IF(((DEPARTMIN=DEP4)AND(ARRIVEEMIN!=ARR1)),1,0) AS VERIF1, IF(((DEPARTMIN=DEP3)AND((ARRIVEEMIN=ARR2) OR (ARRIVEEMIN=ARR3))),1,0) AS VERIF2, IF(((DEPARTMIN=DEP2)AND(ARRIVEEMIN=ARR2)),1,0) AS VERIF3 FROM (SELECT *, LEAST(DEP1, IFNULL(DEP2,5000), IFNULL(DEP3,5000), IFNULL(DEP4,5000)) AS DEPARTMIN , LEAST(ARR1, IFNULL(ARR2,5000), IFNULL(ARR3,5000), IFNULL(ARR4,5000)) AS ARRIVEEMIN  FROM (SELECT *, ".$formuledepsql.$formulearrsql." FROM trajets WHERE STATUT='Valide' ".$requete.$type." HAVING ".$requetedep." ".$requetearr." ORDER BY ".$order.") AS t1) AS t2
 HAVING VERIF1=0 AND VERIF2=0 AND VERIF3=0", GetSQLValueString($colname_RStrajets3, "date"));
@@ -206,9 +206,9 @@ $query_RSparcours = sprintf("SELECT *, ".$formuledepsql." FROM trajets WHERE STA
 }
 
 //echo $query_RSparcours;
-//$RSparcours = mysql_query($query_RSparcours, $bddcovoiturette) or die(mysql_error());
-//$row_RSparcours = mysql_fetch_assoc($RSparcours);
-//$totalRow_RSparcours = mysql_num_rows($RSparcours);
+//$RSparcours = mysqli_query($bddcovoiturette ,$query_RSparcours) or die(mysqli_error($bddcovoiturette));
+//$row_RSparcours = mysqli_fetch_assoc($RSparcours);
+//$totalRow_RSparcours = mysqli_num_rows($RSparcours);
 
 // PAGINATION
 $currentPage = $_SERVER["PHP_SELF"];// url en cours
@@ -222,14 +222,14 @@ $startRow_rs = $pageNum_rs * $maxRows_rs; // premier result à afficher, nb page 
 
 $query_rs = $query_RSparcours;// requête utilisée, voir ci-dessus
 $query_limit_rs = sprintf("%s LIMIT %d, %d", $query_rs, $startRow_rs, $maxRows_rs);// req + complément de req = pagination
-$rs = mysql_query($query_limit_rs, $bddcovoiturette) or die(mysql_error());// lancement de la requête
-$row_RSparcours = mysql_fetch_assoc($rs);// nb de result obtenu
+$rs = mysqli_query($bddcovoiturette, $query_limit_rs) or die(mysqli_error($bddcovoiturette));// lancement de la requête
+$row_RSparcours = mysqli_fetch_assoc($rs);// nb de result obtenu
 
 if (isset($_GET['totalRows_rs'])) {// si nb total de result dans url
   $totalRows_rs = $_GET['totalRows_rs'];
 } else {
-  $all_rs = mysql_query($query_rs);// lancement req pour obtenir
-  $totalRows_rs = mysql_num_rows($all_rs);// tous les result dans la bdd
+  $all_rs = mysqli_query($bddcovoiturette, $query_rs);// lancement req pour obtenir
+  $totalRows_rs = mysqli_num_rows($all_rs);// tous les result dans la bdd
 }
 $totalPages_rs = ceil($totalRows_rs/$maxRows_rs) - 1;// nb total de pages de result = nb total de result dans la bdd / nb de result par page
 
@@ -479,7 +479,7 @@ return true
 	if($totalRows_rs>0){
 		do {
 			include('include-annonce2.php');	
-		} while ($row_RSparcours = mysql_fetch_assoc($rs));
+		} while ($row_RSparcours = mysqli_fetch_assoc($rs));
 	} else {
 		echo 'Malheureusement, aucune annonce n\'a été trouvée. Essayez sur un autre parcours/date';
 	}
@@ -514,5 +514,5 @@ return true
 </body>
 <!-- InstanceEnd --></html>
 <?php
-mysql_free_result($rs);
+mysqli_free_result($rs);
 ?>
